@@ -1,4 +1,4 @@
-package dal;
+package dal.product;
 
 import model.Product;
 

@@ -1,6 +1,7 @@
 package model;
 
 public class Product {
+	private Supplier supplier;
 	private String name;
 	private String brand;
 	private int price;
@@ -10,7 +11,8 @@ public class Product {
 	private long id;
 	private String description;
 	
-	public Product(String name, String brand, int price, String countryOfOrigen, int minStock, int stock, long id, String description) {
+	public Product(Supplier supplier, String name, String brand, int price, String countryOfOrigen, int minStock, int stock, long id, String description) {
+		this.supplier = supplier;
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
@@ -19,6 +21,14 @@ public class Product {
 		this.stock = stock;
 		this.id = id;
 		this.description = description;
+	}
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
 	}
 
 	public String getName() {
