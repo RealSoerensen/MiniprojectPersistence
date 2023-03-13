@@ -10,14 +10,14 @@ public class Product {
 	private long id;
 	private String description;
 	
-	public Product(String name, String brand, int price, String countryOfOrigen, int minStock, int stock, String description) {
+	public Product(String name, String brand, int price, String countryOfOrigen, int minStock, int stock, long id, String description) {
 		this.name = name;
 		this.brand = brand;
 		this.price = price;
 		this.countryOfOrigen = countryOfOrigen;
 		this.minStock = minStock;
 		this.stock = stock;
-		//TODO Initiere ID
+		this.id = id;
 		this.description = description;
 	}
 
