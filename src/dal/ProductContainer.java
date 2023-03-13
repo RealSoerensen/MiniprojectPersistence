@@ -1,4 +1,6 @@
-package model;
+package dal;
+
+import model.Product;
 
 import java.util.List;
 
