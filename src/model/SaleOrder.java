@@ -1,11 +1,12 @@
 package model;
 
 public class SaleOrder {
-	int orderId;
-	String date;
-	String deliveryStatus;
-	String deliveryDate;
-	double totalPrice;
+	private int orderId;
+	private String date;
+	private String deliveryStatus;
+	private String deliveryDate;
+	private double totalPrice;
+	
 	public SaleOrder(int orderId, String date, String deliveryStatus, String deliveryDate, double totalPrice) {
 		this.orderId = orderId;
 		this.date = date;
