@@ -1,9 +1,10 @@
 package model;
 
 public class OrderLine {
-	int amount;
-	int discount;
-	boolean status;
+	private int amount;
+	private int discount;
+	private boolean status;
+	
 	public OrderLine(int amount, int discount, boolean status){
 		this.amount = amount;
 		this.discount = discount;

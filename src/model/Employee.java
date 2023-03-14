@@ -1,10 +1,10 @@
 package model;
 
 public class Employee {
-	String name;
-	String username;
-	String password;
-	String title;
+	private String name;
+	private String username;
+	private String password;
+	private String title;
 
 	public Employee(String name, String username, String password, String title) {
 		this.name=name;
