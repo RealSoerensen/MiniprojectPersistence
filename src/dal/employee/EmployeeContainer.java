@@ -6,8 +6,8 @@ import java.util.List;
 import model.Employee;
 
 public class EmployeeContainer implements EmployeeDBIF {
-	private final List<Employee> employees;
-	private static EmployeeContainer instance;
+    private final List<Employee> employees;
+    private static EmployeeContainer instance;
 
     private EmployeeContainer() {
         employees = new ArrayList<>();
@@ -44,16 +44,4 @@ public class EmployeeContainer implements EmployeeDBIF {
     public boolean delete(int id) {
         return false;
     }
-
-	@Override
-	public boolean login(String username, String password) {
-        boolean validLogin = false;
-        for(int i = 0; i < employees.size(); i++) {
-            Employee e = employees.get(i);
-            if (e.getUsername().equals(username) && e.getPassword().equals(password)) {
-            	validLogin = true;
-            }
-        }
-        return validLogin;
-	}
 }
