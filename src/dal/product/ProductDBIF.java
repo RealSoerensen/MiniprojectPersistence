@@ -1,4 +1,6 @@
 package dal.product;
 
-public class ProductDBIF {
+import dal.CRUD;
+
+public interface ProductDBIF extends CRUD {
 }

@@ -1,4 +1,6 @@
 package dal.customer;
 
-public interface CustomerDBIF {
+import dal.CRUD;
+
+public interface CustomerDBIF extends CRUD {
 }

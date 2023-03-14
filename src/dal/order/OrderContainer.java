@@ -1,5 +1,31 @@
 package dal.order;
 
-public class OrderContainer {
+import java.util.List;
 
+public class OrderContainer implements OrderDBIF {
+
+    @Override
+    public boolean create(Object obj) {
+        return false;
+    }
+
+    @Override
+    public Object get(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Object> getAll() {
+        return null;
+    }
+
+    @Override
+    public boolean update(Object obj) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
 }

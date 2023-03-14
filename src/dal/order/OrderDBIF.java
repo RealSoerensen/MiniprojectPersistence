@@ -1,4 +1,6 @@
 package dal.order;
 
-public interface OrderDBIF {
+import dal.CRUD;
+
+public interface OrderDBIF extends CRUD {
 }

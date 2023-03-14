@@ -1,4 +1,6 @@
 package dal.employee;
 
-public interface EmployeeDBIF {
+import dal.CRUD;
+
+public interface EmployeeDBIF extends CRUD {
 }

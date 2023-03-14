@@ -5,6 +5,7 @@ public class Employee {
 	String username;
 	String password;
 	String title;
+
 	public Employee(String name, String username, String password, String title) {
 		this.name=name;
 		this.username= username;
@@ -16,25 +17,25 @@ public class Employee {
 		return name;
 	}
 	public void setName(String name) {
-		name = name;
+		this.name = name;
 	}
 	public String getUsername() {
 		return username;
 	}
 	public void setUsername(String username) {
-		username = username;
+		this.username = username;
 	}
 	public String getpassword() {
 		return password;
 	}
 	public void setPassword(String password) {
-		password = password;
+		this.password = password;
 	}
 	public String getTitle() {
 		return title;
 	}
 	public void setTitle(String title) {
-		title = title;
+		this.title = title;
 	}
 	
 }

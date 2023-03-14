@@ -8,6 +8,7 @@ public class Customer {
 	String phoneNo;
 	String username;
 	String password;
+
 	public Customer(String name, String address, String zipcode, String city, String phoneNo, String username,
 			String password) {
 		this.name = name;

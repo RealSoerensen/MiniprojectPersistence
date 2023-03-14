@@ -1,4 +1,30 @@
 package dal.customer;
 
-public class CustomerDB {
+import java.util.List;
+
+public class CustomerDB implements CustomerDBIF {
+    @Override
+    public boolean create(Object obj) {
+        return false;
+    }
+
+    @Override
+    public Object get(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Object> getAll() {
+        return null;
+    }
+
+    @Override
+    public boolean update(Object obj) {
+        return false;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        return false;
+    }
 }
