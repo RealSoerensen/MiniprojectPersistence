@@ -8,9 +8,10 @@ public class Customer {
 	private String phoneNo;
 	private String username;
 	private String password;
+	private int ID;
 
 	public Customer(String name, String address, String zipcode, String city, String phoneNo, String username,
-			String password) {
+			String password, int ID) {
 		this.name = name;
 		this.address = address;
 		this.zipcode = zipcode;
@@ -18,6 +19,7 @@ public class Customer {
 		this.phoneNo = phoneNo;
 		this.username = username;
 		this.password = password;
+		this.ID = ID;
 	}
 	
 	public String getName() {
@@ -75,6 +77,11 @@ public class Customer {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public int getID() {
+		return ID;
+	}
+	public void setID(int ID) {
+		this.ID = ID;
+	}
 	
 }

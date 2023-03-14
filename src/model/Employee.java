@@ -25,7 +25,7 @@ public class Employee {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getpassword() {
+	public String getPassword() {
 		return password;
 	}
 	public void setPassword(String password) {
