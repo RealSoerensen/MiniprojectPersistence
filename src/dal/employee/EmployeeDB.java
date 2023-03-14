@@ -27,4 +27,9 @@ public class EmployeeDB implements EmployeeDBIF {
     public boolean delete(int id) {
         return false;
     }
+
+    @Override
+    public boolean login(String username, String password) {
+        return false;
+    }
 }

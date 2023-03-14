@@ -1,34 +1,24 @@
 package dal.customer;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import model.Customer;
 
 public class CustomerContainer implements CustomerDBIF {
-
-    
-    private List<Customer> customers;
-	private long customerID; //Reference variable for customers.
+	private static CustomerContainer instance = null;
+    private final List<Customer> customers;
 	
-	public CustomerContainer(long customerID) {
-		this.customerID = customerID;
+	private CustomerContainer() {
+		customers = new ArrayList<>();
 	}
 
-	public List<Customer> getCustomers() {
-		return customers;
-	}
-
-	public long getCustomerID() {
-		return customerID;
-	}
-
-	public void setCustomerID(List<Customer> customers) {
-		this.customers = customers;
-	}
-
-	public void setCustomerID(long customerID) {
-		this.customerID = customerID;
+	public static CustomerContainer getInstance() {
+		if(instance == null) {
+			instance = new CustomerContainer();
+		}
+		return instance;
 	}
 
 	@Override
