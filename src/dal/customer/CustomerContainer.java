@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import model.Customer;
-import model.Employee;
 
 public class CustomerContainer implements CustomerDBIF {
 
