@@ -2,31 +2,23 @@ package dal.product;
 
 import model.Product;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ProductContainer implements ProductDBIF {
-	private List<Product> products;
-	private long productID; //Reference variable for products.
+	private static ProductContainer instance = null;
+	private final List<Product> products;
 	
-	public ProductContainer(long productID) {
-		this.productID = productID;
+	private ProductContainer() {
+		products = new ArrayList<>();
 	}
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public long getProductID() {
-		return productID;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
-
-	public void setProductID(long productID) {
-		this.productID = productID;
+	public static ProductContainer getInstance() {
+		if(instance == null) {
+			instance = new ProductContainer();
+		}
+		return instance;
 	}
 
 	@Override

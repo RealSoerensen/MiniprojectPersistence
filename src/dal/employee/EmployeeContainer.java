@@ -6,18 +6,18 @@ import java.util.List;
 import model.Employee;
 
 public class EmployeeContainer implements EmployeeDBIF {
-	private List<Employee> employees;
+	private final List<Employee> employees;
 	private static EmployeeContainer instance;
-	
+
+    private EmployeeContainer() {
+        employees = new ArrayList<>();
+    }
+
     public static EmployeeContainer getInstance() {
         if (instance == null) {
             instance = new EmployeeContainer();
         }
         return instance;
-    }
-    
-    private EmployeeContainer() {
-    	employees = new ArrayList<>();
     }
 
     @Override
