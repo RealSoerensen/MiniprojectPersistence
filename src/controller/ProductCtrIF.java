@@ -1,4 +1,7 @@
 package controller;
 
-public interface ProductCtrIF {
+import dal.CRUD;
+
+public interface ProductCtrIF extends CRUD {
+
 }
