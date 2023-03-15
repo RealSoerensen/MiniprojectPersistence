@@ -10,7 +10,7 @@ public class Customer {
 
 	public Customer(String name, String address, String zipcode, String city, String phoneNo, String username,
 			String password) {
-		this.id = 0;
+		this.customerId = 0;
 		this.name = name;
 		this.address = address;
 		this.phoneNo = phoneNo;
@@ -18,12 +18,12 @@ public class Customer {
 		this.password = password;
 	}
 
-	public int getId() {
-		return id;
+	public long getId() {
+		return customerId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(long id) {
+		this.customerId = id;
 	}
 
 	public String getName() {
