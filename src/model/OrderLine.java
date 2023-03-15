@@ -1,31 +1,37 @@
 package model;
 
 public class OrderLine {
-	private int amount;
+	private int quantity;
 	private int discount;
-	private boolean status;
+	private double price;
 	
-	public OrderLine(int amount, int discount, boolean status){
-		this.amount = amount;
+	public OrderLine(int quantity, int discount, double price){
+		this.quantity = quantity;
 		this.discount = discount;
-		this.status = status;
+		this.price = price;
 	}
-	public int getAmount() {
-		return amount;
-	}
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
+
 	public int getDiscount() {
 		return discount;
 	}
 	public void setDiscount(int discount) {
 		this.discount = discount;
 	}
-	public boolean isStatus() {
-		return status;
+
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setStatus(boolean status) {
-		this.status = status;
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 }

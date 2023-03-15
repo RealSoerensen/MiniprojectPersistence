@@ -1,35 +1,18 @@
 package model;
 
 public class Customer {
-	private int id;
+	private long customerId;
 	private String name;
 	private String address;
-	private String zipcode;
-	private String city;
 	private String phoneNo;
-	private String username;
-	private String password;
-	private int ID;
+	
+	
 
-	public Customer(String name, String address, String zipcode, String city, String phoneNo, String username,
-			String password, int ID) {
-		this.id = 0;
+	public Customer(long customerId, String name, String address, String phoneNo) {
+		this.customerId = 0;
 		this.name = name;
 		this.address = address;
-		this.zipcode = zipcode;
-		this.city = city;
 		this.phoneNo = phoneNo;
-		this.username = username;
-		this.password = password;
-		this.ID = ID;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -48,22 +31,6 @@ public class Customer {
 		this.address = address;
 	}
 
-	public String getZipcode() {
-		return zipcode;
-	}
-
-	public void setZipcode(String zipcode) {
-		this.zipcode = zipcode;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
 	public String getPhoneNo() {
 		return phoneNo;
 	}
@@ -72,28 +39,13 @@ public class Customer {
 		this.phoneNo = phoneNo;
 	}
 
-	public String getUsername() {
-		return username;
+	public long getCustomerId() {
+		return customerId;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public int getID() {
-		return ID;
-	}
-
-	public void setID(int ID) {
-		this.ID = ID;
-	}
 
 }
