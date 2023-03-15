@@ -5,14 +5,25 @@ public class Customer {
 	private String name;
 	private String address;
 	private String phoneNo;
-	
-	
+	private String username;
+	private String password;
 
-	public Customer(long customerId, String name, String address, String phoneNo) {
-		this.customerId = 0;
+	public Customer(String name, String address, String zipcode, String city, String phoneNo, String username,
+			String password) {
+		this.id = 0;
 		this.name = name;
 		this.address = address;
 		this.phoneNo = phoneNo;
+		this.username = username;
+		this.password = password;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -47,5 +58,19 @@ public class Customer {
 		this.customerId = customerId;
 	}
 
+	public String getUsername() {
+		return username;
+	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 }
