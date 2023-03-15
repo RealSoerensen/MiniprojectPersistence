@@ -1,40 +1,42 @@
 package controller;
 
+import dal.product.ProductDBIF;
+
 import java.util.List;
 
 public class ProductController implements ProductCtrIF{
-    private ProductCtrIF productCtrIF;
+    private ProductDBIF productDBIF;
 
-    public ProductController(ProductCtrIF productCtrIF) {
+    public ProductController(ProductDBIF productCtrIF) {
         setProductCtrIF(productCtrIF);
     }
 
-    private void setProductCtrIF(ProductCtrIF productCtrIF) {
-        this.productCtrIF = productCtrIF;
+    private void setProductCtrIF(ProductDBIF productCtrIF) {
+        this.productDBIF = productCtrIF;
     }
 
     @Override
     public boolean create(Object obj) {
-        return productCtrIF.create(obj);
+        return productDBIF.create(obj);
     }
 
     @Override
     public Object get(long id) {
-        return productCtrIF.get(id);
+        return productDBIF.get(id);
     }
 
     @Override
     public List<Object> getAll() {
-        return productCtrIF.getAll();
+        return productDBIF.getAll();
     }
 
     @Override
     public boolean update(Object obj) {
-        return productCtrIF.update(obj);
+        return productDBIF.update(obj);
     }
 
     @Override
     public boolean delete(long id) {
-        return productCtrIF.delete(id);
+        return productDBIF.delete(id);
     }
 }
