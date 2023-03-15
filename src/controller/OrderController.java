@@ -1,40 +1,42 @@
 package controller;
 
+import dal.order.OrderDBIF;
+
 import java.util.List;
 
 public class OrderController implements OrderCtrIF{
-    private OrderCtrIF orderCtrIF;
+    private OrderDBIF orderDBIF;
 
-    public OrderController(OrderCtrIF orderCtrIF) {
-        setOrderCtrIF(orderCtrIF);
+    public OrderController(OrderDBIF orderDBIF) {
+        setOrderCtrIF(orderDBIF);
     }
 
-    private void setOrderCtrIF(OrderCtrIF orderCtrIF) {
-        this.orderCtrIF = orderCtrIF;
+    private void setOrderCtrIF(OrderDBIF orderDBIF) {
+        this.orderDBIF = orderDBIF;
     }
 
     @Override
     public boolean create(Object obj) {
-        return orderCtrIF.create(obj);
+        return orderDBIF.create(obj);
     }
 
     @Override
     public Object get(long id) {
-        return orderCtrIF.get(id);
+        return orderDBIF.get(id);
     }
 
     @Override
     public List<Object> getAll() {
-        return orderCtrIF.getAll();
+        return orderDBIF.getAll();
     }
 
     @Override
     public boolean update(Object obj) {
-        return orderCtrIF.update(obj);
+        return orderDBIF.update(obj);
     }
 
     @Override
     public boolean delete(long id) {
-        return orderCtrIF.delete(id);
+        return orderDBIF.delete(id);
     }
 }

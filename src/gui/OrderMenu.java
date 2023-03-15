@@ -7,10 +7,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.tree.TreePath;
 
 import controller.ProductController;
+import dal.product.ProductContainer;
 import model.Product;
 
 public class OrderMenu {
@@ -27,7 +29,7 @@ public class OrderMenu {
 	 * Create the application.
 	 */
 	public OrderMenu() {
-		productController = new ProductController();
+		productController = new ProductController(ProductContainer.getInstance());
 		initialize();
 		frame.setVisible(true);
 	}
@@ -87,20 +89,23 @@ public class OrderMenu {
 		panel_3.setLayout(new BorderLayout(0, 0));
 
 		DefaultMutableTreeNode root = new DefaultMutableTreeNode("Produkter");
-		List<Product> products = productController.getAllProducts();
-		for (Product product : products) {
-			DefaultMutableTreeNode productNode = new DefaultMutableTreeNode(product.getBarcode());
-			root.add(productNode);
+		List<Object> products = productController.getAll();
+		for (Object product : products) {
+			DefaultMutableTreeNode category = new DefaultMutableTreeNode(((Product) product).getCategory());
+			if (!root.isNodeChild(category)) {
+				root.add(category);
+			}
+			category.add(new DefaultMutableTreeNode(((Product) product).getId()));
 		}
 
 		tree = new JTree(root);
 		tree.getSelectionModel().addTreeSelectionListener(e -> {
 			TreeNode selectedNode = (TreeNode) tree.getLastSelectedPathComponent();
 			if (selectedNode != null) {
-				Product product = productController.getProduct(Long.parseLong(selectedNode.toString()));
+				Product product = (Product) productController.get(Long.parseLong(selectedNode.toString()));
 				tfName.setText(product.getName());
 				tfDescription.setText(product.getDescription());
-				tfPrice.setText(String.valueOf(product.getPrice()));
+				tfPrice.setText(String.valueOf(product.getSalesPrice()));
 				tfStock.setText(String.valueOf(product.getStock()));
 			}
 		});
