@@ -28,7 +28,7 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-    public Object get(int id) {
+    public Object get(long id) {
         return null;
     }
 
@@ -43,7 +43,7 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(long id) {
         return false;
     }
 }

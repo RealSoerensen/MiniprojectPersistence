@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface CRUD {
     boolean create(Object obj);
-    Object get(int id);
+    Object get(long id);
     List<Object> getAll();
     boolean update(Object obj);
-    boolean delete(int id);
+    boolean delete(long id);
 }

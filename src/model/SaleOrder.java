@@ -18,7 +18,6 @@ public class SaleOrder {
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryDate = deliveryDate;
 		this.totalPrice = totalPrice;
-		this.paymentDate = paymentDate;
 	}
 
 	public long getOrderId() {

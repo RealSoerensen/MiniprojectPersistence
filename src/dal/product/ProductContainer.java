@@ -27,7 +27,7 @@ public class ProductContainer implements ProductDBIF {
 	}
 
 	@Override
-	public Object get(int id) {
+	public Object get(long id) {
 		Product tempProduct = null;
 		int i = 0;
 		boolean found = false;
@@ -66,7 +66,7 @@ public class ProductContainer implements ProductDBIF {
 	}
 
 	@Override
-	public boolean delete(int id) {
+	public boolean delete(long id) {
 		boolean isRemoved = false;
 		Product product = (Product) get(id);
 		if(products.contains(product)) {

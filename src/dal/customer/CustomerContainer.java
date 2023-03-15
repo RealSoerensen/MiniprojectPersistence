@@ -27,16 +27,11 @@ public class CustomerContainer implements CustomerDBIF {
 	}
 
 	@Override
-	public Object get(int id) {
+	public Object get(long id) {
 		Customer tempcustomer = null;
-		int i = 0;
-		boolean found = false;
-
-		while (i < customers.size() && !found) {
-			if (customers.get(i).getId() == id) {
-				tempcustomer = customers.get(i);
-				found = true;
-			}
+		int index = findCustomer(id);
+		if (index >= 0) {
+			tempcustomer = customers.get(index);
 		}
 
 		return tempcustomer;
@@ -51,28 +46,35 @@ public class CustomerContainer implements CustomerDBIF {
 	public boolean update(Object obj) {
 		boolean isUpdated = false;
 		Customer customer = (Customer) obj;
-		int i = 0;
-		boolean found = false;
-
-		while (i < customers.size() && !found) {
-			if (customers.get(i).getId() == customer.getId()) {
-				customers.set(i, customer);
-				isUpdated = true;
-				found = true;
-			}
+		int index = findCustomer(customer.getId());
+		if (index >= 0) {
+			customers.set(index, customer);
+			isUpdated = true;
 		}
+
 
 		return isUpdated;
 	}
 
 	@Override
-	public boolean delete(int phoneNo) {
+	public boolean delete(long id) {
 		boolean isRemoved = false;
-		Customer customer = (Customer) get(phoneNo);
+		Customer customer = (Customer) get(id);
 		if (customers.contains(customer)) {
 			customers.remove(customer);
 			isRemoved = true;
 		}
 		return isRemoved;
+	}
+
+	private int findCustomer(long id) {
+		int i = 0;
+		boolean found = false;
+		while (i < customers.size() && !found) {
+			if (customers.get(i).getId() == id) {
+				found = true;
+			}
+		}
+		return i;
 	}
 }

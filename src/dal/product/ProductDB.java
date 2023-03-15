@@ -9,7 +9,7 @@ public class ProductDB implements ProductDBIF {
     }
 
     @Override
-    public Object get(int id) {
+    public Object get(long id) {
         return null;
     }
 
@@ -24,7 +24,7 @@ public class ProductDB implements ProductDBIF {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(long id) {
         return false;
     }
 }
