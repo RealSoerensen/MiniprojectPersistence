@@ -10,10 +10,24 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestDB {
 
     @Test
-    public void testDBConnection() throws SQLException {
-        DBConnection.getInstance();
+    public void shouldStartConnectionToDB() throws SQLException {
+    	//Arrange
+    	
+    	//Act
+        DBConnection.getInstance(); //Creates connection upon instance creation.
+        
+        //Assert
         assertTrue(DBConnection.getOpenStatus());
-        DBConnection.closeConnection();
+    }
+    
+    @Test
+    public void shouldCloseConnectionToDB() throws SQLException {
+    	//Arrange
+    	
+    	//Act
+    	DBConnection.closeConnection();
+    	
+    	//Assert
         assertFalse(DBConnection.getOpenStatus());
     }
 }

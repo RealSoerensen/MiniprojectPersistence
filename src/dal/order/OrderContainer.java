@@ -28,7 +28,7 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-    public Object get(long id) {
+    public Object get(int id) {
         return null;
     }
 
@@ -43,7 +43,13 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(int id) {
         return false;
     }
+
+	@Override
+	public boolean addProduktToOrderLine(int id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
