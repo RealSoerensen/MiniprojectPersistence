@@ -8,7 +8,7 @@ import model.Customer;
 
 public class CustomerContainer implements CustomerDBIF {
 	private static CustomerContainer instance = null;
-	private final List<Customer> customers;
+	private final List<Object> customers;
 
 	private CustomerContainer() {
 		customers = new ArrayList<>();
@@ -23,23 +23,21 @@ public class CustomerContainer implements CustomerDBIF {
 
 	@Override
 	public boolean create(Object obj) {
-		return customers.add((Customer) obj);
+		return customers.add(obj);
 	}
 
 	@Override
 	public Object get(long id) {
-		Customer tempcustomer = null;
 		int index = findCustomer(id);
 		if (index >= 0) {
-			tempcustomer = customers.get(index);
+			return customers.get(index);
 		}
-
-		return tempcustomer;
+		return null;
 	}
 
 	@Override
 	public List<Object> getAll() {
-		return Collections.singletonList(customers);
+		return customers;
 	}
 
 	@Override
@@ -68,13 +66,13 @@ public class CustomerContainer implements CustomerDBIF {
 	}
 
 	private int findCustomer(long id) {
-		int i = 0;
-		boolean found = false;
-		while (i < customers.size() && !found) {
-			if (customers.get(i).getId() == id) {
-				found = true;
+		int index = -1;
+		for (int i = 0; i < customers.size(); i++) {
+			Customer customer = (Customer) customers.get(i);
+			if (customer.getId() == id) {
+				index = i;
 			}
 		}
-		return i;
+		return index;
 	}
 }

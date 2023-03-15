@@ -2,7 +2,9 @@ package controller;
 
 import dal.customer.CustomerContainer;
 import dal.customer.CustomerDBIF;
+import model.Customer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerController implements CustomerCtrIF {
@@ -16,27 +18,26 @@ public class CustomerController implements CustomerCtrIF {
         this.customerDBIF = customerDBIF;
     }
 
-    @Override
-    public boolean create(Object obj) {
+    public boolean create(Customer obj) {
         return customerDBIF.create(obj);
     }
 
-    @Override
-    public Object get(long id) {
-        return customerDBIF.get(id);
+    public Customer get(long id) {
+        return (Customer) customerDBIF.get(id);
     }
 
-    @Override
-    public List<Object> getAll() {
-        return customerDBIF.getAll();
+    public List<Customer> getAll() {
+        List<Customer> customers = new ArrayList<>();
+        for(Object obj : customerDBIF.getAll()) {
+            customers.add((Customer) obj);
+        }
+        return customers;
     }
 
-    @Override
-    public boolean update(Object obj) {
+    public boolean update(Customer obj) {
         return customerDBIF.update(obj);
     }
 
-    @Override
     public boolean delete(long id) {
         return customerDBIF.delete(id);
     }
