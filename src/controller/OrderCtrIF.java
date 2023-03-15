@@ -1,4 +1,6 @@
 package controller;
 
-public interface OrderCtrIF {
+import dal.CRUD;
+
+public interface OrderCtrIF extends CRUD {
 }
