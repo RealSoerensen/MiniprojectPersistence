@@ -1,7 +1,6 @@
 package dal.customer;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import model.Customer;
@@ -28,24 +27,16 @@ public class CustomerContainer implements CustomerDBIF {
 
 	@Override
 	public Object get(long id) {
-		Customer tempCustomer = null;
-		int i = 0;
-		boolean found = false;
-
-		while (i < customers.size() && !found) {
-			Customer customer = (Customer) customers.get(i);
-			if (customer.getId() == id) {
-				tempCustomer = customer;
-				found = true;
-			}
+		int index = findCustomer(id);
+		if (index >= 0) {
+			return customers.get(index);
 		}
-
-		return tempCustomer;
+		return null;
 	}
 
 	@Override
 	public List<Object> getAll() {
-		return Collections.singletonList(customers);
+		return customers;
 	}
 
 	@Override
@@ -76,5 +67,16 @@ public class CustomerContainer implements CustomerDBIF {
 			isRemoved = true;
 		}
 		return isRemoved;
+	}
+
+	private int findCustomer(long id) {
+		int index = -1;
+		for (int i = 0; i < customers.size(); i++) {
+			Customer customer = (Customer) customers.get(i);
+			if (customer.getId() == id) {
+				index = i;
+			}
+		}
+		return index;
 	}
 }

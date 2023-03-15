@@ -1,7 +1,9 @@
 package controller;
 
 import dal.product.ProductDBIF;
+import model.Product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductController implements ProductCtrIF{
@@ -15,27 +17,26 @@ public class ProductController implements ProductCtrIF{
         this.productDBIF = productCtrIF;
     }
 
-    @Override
-    public boolean create(Object obj) {
+    public boolean create(Product obj) {
         return productDBIF.create(obj);
     }
 
-    @Override
-    public Object get(long id) {
-        return productDBIF.get(id);
+    public Product get(long id) {
+        return (Product) productDBIF.get(id);
     }
 
-    @Override
-    public List<Object> getAll() {
-        return productDBIF.getAll();
+    public List<Product> getAll() {
+        List<Product> products = new ArrayList<>();
+        for(Object obj : productDBIF.getAll()) {
+            products.add((Product) obj);
+        }
+        return products;
     }
 
-    @Override
-    public boolean update(Object obj) {
+    public boolean update(Product obj) {
         return productDBIF.update(obj);
     }
 
-    @Override
     public boolean delete(long id) {
         return productDBIF.delete(id);
     }

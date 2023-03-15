@@ -1,7 +1,9 @@
 package controller;
 
 import dal.order.OrderDBIF;
+import org.junit.jupiter.api.Order;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrderController implements OrderCtrIF{
@@ -15,23 +17,23 @@ public class OrderController implements OrderCtrIF{
         this.orderDBIF = orderDBIF;
     }
 
-    @Override
-    public boolean create(Object obj) {
+    public boolean create(Order obj) {
         return orderDBIF.create(obj);
     }
 
-    @Override
-    public Object get(long id) {
-        return orderDBIF.get(id);
+    public Order get(long id) {
+        return (Order) orderDBIF.get(id);
     }
 
-    @Override
-    public List<Object> getAll() {
-        return orderDBIF.getAll();
+    public List<Order> getAll() {
+        List<Order> orders = new ArrayList<>();
+        for(Object obj : orderDBIF.getAll()) {
+            orders.add((Order) obj);
+        }
+        return orders;
     }
 
-    @Override
-    public boolean update(Object obj) {
+    public boolean update(Order obj) {
         return orderDBIF.update(obj);
     }
 

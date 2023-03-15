@@ -1,7 +1,14 @@
 package controller;
 
 import dal.CRUD;
+import model.Product;
 
-public interface ProductCtrIF extends CRUD {
+import java.util.List;
 
+public interface ProductCtrIF {
+    boolean create(Product obj);
+    Product get(long id);
+    List<Product> getAll();
+    boolean update(Product obj);
+    boolean delete(long id);
 }
