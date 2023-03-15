@@ -1,18 +1,28 @@
 package model;
 
 public class Supplier {
+    private long id;
     private String name;
     private String address;
     private String country;
     private String phoneNo;
     private String email;
 
-    public Supplier(String name, String address, String country, String phoneNo, String email) {
+    public Supplier(long id, String name, String address, String country, String phoneNo, String email) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.country = country;
         this.phoneNo = phoneNo;
         this.email = email;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -1,47 +1,71 @@
 package model;
 
+import java.util.Date;
+
 public class SaleOrder {
-	private int orderId;
-	private String date;
+	private long orderId;
+	private Date date;
+	private Date paymentDate;
 	private String deliveryStatus;
-	private String deliveryDate;
+	private Date deliveryDate;
 	private double totalPrice;
-	
-	public SaleOrder(int orderId, String date, String deliveryStatus, String deliveryDate, double totalPrice) {
+
+	public SaleOrder(long orderId, Date date, String deliveryStatus, Date deliveryDate, double totalPrice,
+			Date paymentDate) {
 		this.orderId = orderId;
 		this.date = date;
-		this.deliveryStatus= deliveryStatus;
+		this.paymentDate = paymentDate;
+		this.deliveryStatus = deliveryStatus;
 		this.deliveryDate = deliveryDate;
 		this.totalPrice = totalPrice;
+		this.paymentDate = paymentDate;
 	}
-	public int getOrderId() {
+
+	public long getOrderId() {
 		return orderId;
 	}
-	public void setOrderId(int orderId) {
+
+	public void setOrderId(long orderId) {
 		this.orderId = orderId;
 	}
-	public String getDate() {
+
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
 	public String getDeliveryStatus() {
 		return deliveryStatus;
 	}
+
 	public void setDeliveryStatus(String deliveryStatus) {
 		this.deliveryStatus = deliveryStatus;
 	}
-	public String getDeliveryDate() {
-		return deliveryDate;
-	}
-	public void setDeliveryDate(String deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
+
 	public double getTotalPrice() {
 		return totalPrice;
 	}
+
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
 	}
 }

@@ -1,34 +1,39 @@
 package model;
 
 public class Product {
-	private Supplier supplier;
+	private long id;
+	private long supplierId;
 	private String name;
 	private String brand;
-	private int price;
+	private double purchasePrice;
+	private double salesPrice;
 	private String countryOfOrigen;
 	private int minStock;
 	private int stock;
-	private long id;
 	private String description;
-	
-	public Product(Supplier supplier, String name, String brand, int price, String countryOfOrigen, int minStock, int stock, long id, String description) {
-		this.supplier = supplier;
+	private String category;
+
+	public Product(long id, long supplierId, String name, String brand, double purchasePrice, double salesPrice,
+			String countryOfOrigen, int minStock, int stock, String description, String category) {
+		this.id = id;
+		this.supplierId = supplierId;
 		this.name = name;
 		this.brand = brand;
-		this.price = price;
+		this.purchasePrice = purchasePrice;
+		this.salesPrice = salesPrice;
 		this.countryOfOrigen = countryOfOrigen;
 		this.minStock = minStock;
 		this.stock = stock;
-		this.id = id;
 		this.description = description;
+		this.category = category;
 	}
 
-	public Supplier getSupplier() {
-		return supplier;
+	public long getId() {
+		return id;
 	}
 
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
+	public long getSupplierId() {
+		return supplierId;
 	}
 
 	public String getName() {
@@ -37,10 +42,6 @@ public class Product {
 
 	public String getBrand() {
 		return brand;
-	}
-
-	public int getPrice() {
-		return price;
 	}
 
 	public String getCountryOfOrigen() {
@@ -55,12 +56,16 @@ public class Product {
 		return stock;
 	}
 
-	public long getId() {
-		return id;
-	}
-
 	public String getDescription() {
 		return description;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public void setSupplierId(long supplierId) {
+		this.supplierId = supplierId;
 	}
 
 	public void setName(String name) {
@@ -69,10 +74,6 @@ public class Product {
 
 	public void setBrand(String brand) {
 		this.brand = brand;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public void setCountryOfOrigen(String countryOfOrigen) {
@@ -87,13 +88,32 @@ public class Product {
 		this.stock = stock;
 	}
 
-	public void setId(long id) {
-		this.id = id;
-	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
+	public double getPurchasePrice() {
+		return purchasePrice;
+	}
+
+	public void setPurchasePrice(double purchasePrice) {
+		this.purchasePrice = purchasePrice;
+	}
+
+	public double getSalesPrice() {
+		return salesPrice;
+	}
+
+	public void setSalesPrice(double salesPrice) {
+		this.salesPrice = salesPrice;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 }

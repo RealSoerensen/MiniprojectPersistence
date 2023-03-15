@@ -1,10 +1,11 @@
 package model;
 
-public class Equipment extends Product{
+public class Equipment extends Product {
     private String type;
 
-    public Equipment(Supplier supplier, String name, String brand, int price, String countryOfOrigen, int minStock, int stock, long id, String description, String type) {
-        super(supplier, name, brand, price, countryOfOrigen, minStock, stock, id, description);
+    public Equipment(long id, long supplierId, String name, String brand, int price, String countryOfOrigen,
+            int minStock, int stock, String description, String type) {
+        super(id, supplierId, name, brand, price, countryOfOrigen, minStock, stock, id, description);
         this.type = type;
     }
 
