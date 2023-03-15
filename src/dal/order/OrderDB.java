@@ -27,4 +27,9 @@ public class OrderDB implements OrderDBIF {
     public boolean delete(long id) {
         return false;
     }
+
+    @Override
+    public boolean addProductToOrderLine(long id) {
+        return false;
+    }
 }

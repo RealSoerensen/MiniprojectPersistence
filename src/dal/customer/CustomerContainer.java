@@ -8,7 +8,7 @@ import model.Customer;
 
 public class CustomerContainer implements CustomerDBIF {
 	private static CustomerContainer instance = null;
-	private final List<Customer> customers;
+	private final List<Object> customers;
 
 	private CustomerContainer() {
 		customers = new ArrayList<>();
@@ -23,18 +23,24 @@ public class CustomerContainer implements CustomerDBIF {
 
 	@Override
 	public boolean create(Object obj) {
-		return customers.add((Customer) obj);
+		return customers.add(obj);
 	}
 
 	@Override
 	public Object get(long id) {
-		Customer tempcustomer = null;
-		int index = findCustomer(id);
-		if (index >= 0) {
-			tempcustomer = customers.get(index);
+		Customer tempCustomer = null;
+		int i = 0;
+		boolean found = false;
+
+		while (i < customers.size() && !found) {
+			Customer customer = (Customer) customers.get(i);
+			if (customer.getId() == id) {
+				tempCustomer = customer;
+				found = true;
+			}
 		}
 
-		return tempcustomer;
+		return tempCustomer;
 	}
 
 	@Override
@@ -46,12 +52,17 @@ public class CustomerContainer implements CustomerDBIF {
 	public boolean update(Object obj) {
 		boolean isUpdated = false;
 		Customer customer = (Customer) obj;
-		int index = findCustomer(customer.getId());
-		if (index >= 0) {
-			customers.set(index, customer);
-			isUpdated = true;
-		}
+		int i = 0;
+		boolean found = false;
 
+		while (i < customers.size() && !found) {
+			Customer tempCustomer = (Customer) customers.get(i);
+			if (tempCustomer.getId() == customer.getId()) {
+				customers.set(i, customer);
+				isUpdated = true;
+				found = true;
+			}
+		}
 
 		return isUpdated;
 	}
@@ -65,16 +76,5 @@ public class CustomerContainer implements CustomerDBIF {
 			isRemoved = true;
 		}
 		return isRemoved;
-	}
-
-	private int findCustomer(long id) {
-		int i = 0;
-		boolean found = false;
-		while (i < customers.size() && !found) {
-			if (customers.get(i).getId() == id) {
-				found = true;
-			}
-		}
-		return i;
 	}
 }
