@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductContainer implements ProductDBIF {
 	private static ProductContainer instance = null;
-	private final List<Product> products;
+	private final List<Object> products;
 	
 	private ProductContainer() {
 		products = new ArrayList<>();
@@ -33,8 +33,9 @@ public class ProductContainer implements ProductDBIF {
 		boolean found = false;
 
 		while(i < products.size() && !found) {
-			if(products.get(i).getId() == id) {
-				tempProduct = products.get(i);
+			Product product = (Product) products.get(i);
+			if(product.getId() == id) {
+				tempProduct = product;
 				found = true;
 			}
 		}
@@ -44,7 +45,7 @@ public class ProductContainer implements ProductDBIF {
 
 	@Override
 	public List<Object> getAll() {
-		return Collections.singletonList(products);
+		return products;
 	}
 
 	@Override
@@ -55,7 +56,8 @@ public class ProductContainer implements ProductDBIF {
 		boolean found = false;
 
 		while(i < products.size() && !found) {
-			if(products.get(i).getId() == product.getId()) {
+			Product tempProduct = (Product) products.get(i);
+			if(tempProduct.getId() == product.getId()) {
 				products.set(i, product);
 				isUpdated = true;
 				found = true;

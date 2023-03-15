@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OrderContainer implements OrderDBIF {
     private static OrderContainer instance = null;
-    private final List<SaleOrder> orders;
+    private final List<Object> orders;
 
     private OrderContainer() {
         orders = new ArrayList<>();
@@ -28,7 +28,7 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-    public Object get(int id) {
+    public Object get(long id) {
         return null;
     }
 
@@ -43,13 +43,12 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-    public boolean delete(int id) {
+    public boolean delete(long id) {
         return false;
     }
 
-	@Override
-	public boolean addProduktToOrderLine(int id) {
-		// TODO Auto-generated method stub
+    @Override
+	public boolean addProductToOrderLine(long id) {
 		return false;
 	}
 }
