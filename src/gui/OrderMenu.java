@@ -13,7 +13,7 @@ import javax.swing.tree.TreePath;
 import controller.ProductController;
 import model.Product;
 
-public class CustomerMenu {
+public class OrderMenu {
 	private JFrame frame;
 	private JTree tree;
 	private JTextField tfName;
@@ -26,7 +26,7 @@ public class CustomerMenu {
 	/**
 	 * Create the application.
 	 */
-	public CustomerMenu() {
+	public OrderMenu() {
 		productController = new ProductController();
 		initialize();
 		frame.setVisible(true);
@@ -52,7 +52,7 @@ public class CustomerMenu {
 		frame.getContentPane().add(panel_1, BorderLayout.SOUTH);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnNewButton = new JButton("Log Ud");
+		JButton btnNewButton = new JButton("Tilbage");
 		btnNewButton.addActionListener(e -> {
 			frame.dispose();
 			new LoginMenu();
@@ -66,13 +66,13 @@ public class CustomerMenu {
 		JPanel panel_2 = new JPanel();
 		panel_4.add(panel_2);
 		
-		JButton btnCreateProduct = new JButton("Gå til kurv");
+		JButton btnCreateProduct = new JButton("Afslur Ordre");
 		btnCreateProduct.addActionListener(e -> {
 			//Lave popup menu der spørger om man vil købe x produkter for x penge.
 		});
 		panel_1.add(btnCreateProduct);
 		
-		JButton btnRemoveProduct = new JButton("Tilføj til kurv");
+		JButton btnRemoveProduct = new JButton("Tilføj til Ordre");
 		btnRemoveProduct.addActionListener(e -> {
 			TreePath path = tree.getSelectionPath();
 			if(path == null || path.getPathCount() != 2) {
