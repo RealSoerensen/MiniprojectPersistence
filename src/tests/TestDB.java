@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDB {
+    DBConnection dbConnection;
+
+    public TestDB() throws SQLException {
+        dbConnection = DBConnection.getInstance();
+    }
 
     @Test
     public void shouldStartConnectionToDB() throws SQLException {
@@ -17,7 +22,7 @@ public class TestDB {
         DBConnection.getInstance(); //Creates connection upon instance creation.
         
         //Assert
-        assertTrue(DBConnection.getOpenStatus());
+        assertTrue(dbConnection.getOpenStatus());
     }
     
     @Test
@@ -28,6 +33,6 @@ public class TestDB {
     	DBConnection.closeConnection();
     	
     	//Assert
-        assertFalse(DBConnection.getOpenStatus());
+        assertFalse(dbConnection.getOpenStatus());
     }
 }

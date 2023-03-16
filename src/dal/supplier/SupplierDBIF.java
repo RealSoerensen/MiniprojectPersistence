@@ -1,4 +1,6 @@
 package dal.supplier;
 
-public interface SupplierDBIF {
+import dal.CRUD;
+
+public interface SupplierDBIF extends CRUD {
 }

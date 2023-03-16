@@ -1,7 +1,9 @@
 use "DMA-CSD-S223_10461259";
 
-DROP TABLE Supplier;
-DROP TABLE Product;
-DROP TABLE OrderLine;
-DROP TABLE Customer;
 DROP TABLE SaleOrder;
+DROP TABLE OrderLine;
+DROP TABLE Product;
+DROP TABLE Supplier;
+DROP TABLE Customer;
+
+

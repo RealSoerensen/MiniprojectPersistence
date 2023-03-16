@@ -1,8 +1,20 @@
 package dal.saleorder;
 
+import dal.DBConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class SaleOrderDB implements SaleOrderDBIF {
+    DBConnection dbConnection;
+    Connection con;
+
+    public SaleOrderDB() throws SQLException {
+        dbConnection = DBConnection.getInstance();
+        con = DBConnection.getConnection();
+    }
+
     @Override
     public boolean create(Object obj) {
         return false;

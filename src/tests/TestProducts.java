@@ -1,29 +1,22 @@
 package tests;
 
 import controller.ProductController;
-import dal.product.ProductContainer;
+import dal.product.ProductDB;
 import model.Product;
 import org.junit.jupiter.api.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestProducts {
-    ProductContainer productContainer;
     ProductController productController;
 
     @BeforeEach
-    public void setup() {
-        productContainer = ProductContainer.getInstance();
-        productController = new ProductController(productContainer);
-    }
-
-    @Test
-    public void testProductContainer() {
-        assertNotNull(productContainer);
-
+    public void setup() throws SQLException {
+        productController = new ProductController(ProductDB.getInstance());
     }
 
     @Test
@@ -103,7 +96,7 @@ public class TestProducts {
         // Act
         productController.create(product);
         productController.create(product2);
-        List<Object> products = productContainer.getAll();
+        List<Product> products = productController.getAll();
 
         // Assert
         assertEquals(2, products.size());
@@ -111,6 +104,6 @@ public class TestProducts {
 
     @AfterEach
     public void tearDown() {
-        productContainer = null;
+        productController = null;
     }
 }
