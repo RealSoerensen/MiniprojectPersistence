@@ -17,14 +17,17 @@ public class ProductController implements ProductCtrIF{
         this.productDBIF = productCtrIF;
     }
 
+    @Override
     public boolean create(Product obj) {
         return productDBIF.create(obj);
     }
 
+    @Override
     public Product get(long id) {
         return (Product) productDBIF.get(id);
     }
 
+    @Override
     public List<Product> getAll() {
         List<Product> products = new ArrayList<>();
         for(Object obj : productDBIF.getAll()) {
@@ -33,10 +36,12 @@ public class ProductController implements ProductCtrIF{
         return products;
     }
 
+    @Override
     public boolean update(Product obj) {
         return productDBIF.update(obj);
     }
 
+    @Override
     public boolean delete(long id) {
         return productDBIF.delete(id);
     }

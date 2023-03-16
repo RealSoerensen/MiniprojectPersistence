@@ -1,23 +1,19 @@
-package dal.order;
-
-
-
-import model.SaleOrder;
+package dal.saleorder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderContainer implements OrderDBIF {
-    private static OrderContainer instance = null;
+public class SaleOrderContainer implements SaleOrderDBIF {
+    private static SaleOrderContainer instance = null;
     private final List<Object> orders;
 
-    private OrderContainer() {
+    private SaleOrderContainer() {
         orders = new ArrayList<>();
     }
 
-    public static OrderContainer getInstance() {
-        if(instance == null) {
-            instance = new OrderContainer();
+    public static SaleOrderContainer getInstance() {
+        if (instance == null) {
+            instance = new SaleOrderContainer();
         }
         return instance;
     }
@@ -48,7 +44,7 @@ public class OrderContainer implements OrderDBIF {
     }
 
     @Override
-	public boolean addProductToOrderLine(long id) {
-		return false;
-	}
+    public boolean addProductToOrderLine(long id) {
+        return false;
+    }
 }

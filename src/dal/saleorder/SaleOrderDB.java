@@ -1,8 +1,8 @@
-package dal.order;
+package dal.saleorder;
 
 import java.util.List;
 
-public class OrderDB implements OrderDBIF {
+public class SaleOrderDB implements SaleOrderDBIF {
     @Override
     public boolean create(Object obj) {
         return false;
