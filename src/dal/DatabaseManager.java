@@ -190,7 +190,6 @@ public class DatabaseManager implements CRUD {
     private <T> void setValues(PreparedStatement stmt, T obj) throws SQLException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
         String[] fieldNames = getFieldNames(obj);
         Class<?>[] fieldTypes = getFieldTypes(obj);
-        int index = 1;
         for (int i = 1; i < fieldNames.length; i++) {
             String fieldName = fieldNames[i];
             Class<?> fieldType = fieldTypes[i];
@@ -198,23 +197,22 @@ public class DatabaseManager implements CRUD {
             Method getter = obj.getClass().getMethod(getterName);
             Object value = getter.invoke(obj);
             if (fieldType == String.class) {
-                stmt.setString(index, (String) value);
+                stmt.setString(i, (String) value);
             } else if (fieldType == Double.class || fieldType == double.class) {
-                stmt.setDouble(index, ((Number) value).doubleValue());
+                stmt.setDouble(i, ((Number) value).doubleValue());
             } else if (fieldType == Long.class || fieldType == long.class) {
-                stmt.setLong(index, ((Number) value).longValue());
+                stmt.setLong(i, ((Number) value).longValue());
             } else if (fieldType == int.class) {
-                stmt.setInt(index, (int) value);
+                stmt.setInt(i, (int) value);
             } else if (fieldType == boolean.class) {
-                stmt.setBoolean(index, (boolean) value);
+                stmt.setBoolean(i, (boolean) value);
             } else if (fieldType == float.class) {
-                stmt.setFloat(index, (float) value);
+                stmt.setFloat(i, (float) value);
             } else if (fieldType == Timestamp.class) {
-                stmt.setTimestamp(index, (Timestamp) value);
+                stmt.setTimestamp(i, (Timestamp) value);
             } else {
                 throw new RuntimeException("Unsupported type: " + fieldType);
             }
-            index++;
         }
     }
 
