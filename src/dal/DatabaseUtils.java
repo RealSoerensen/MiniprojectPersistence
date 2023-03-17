@@ -17,7 +17,7 @@ public class DatabaseUtils {
         }
     }
 
-    public static TableInfo getTableInfo(Class<?> type) {
+    public static TableInfo getTableInfo(Object type) {
         String tableName;
         String[] fieldNames;
         Class<?>[] fieldTypes;
@@ -43,7 +43,7 @@ public class DatabaseUtils {
             fieldNames = new String[]{"orderLineId", "discount", "productId", "quantity"};
             fieldTypes = new Class<?>[]{long.class, long.class, long.class, int.class};
         } else {
-            throw new IllegalArgumentException("Unknown object type: " + type.getName());
+            throw new IllegalArgumentException("Unknown object type: " + type.getClass());
         }
 
         return new TableInfo(tableName, fieldNames, fieldTypes);

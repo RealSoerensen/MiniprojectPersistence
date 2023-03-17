@@ -1,16 +1,17 @@
 package dal;
 
-
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseManager implements CRUD {
-    DBConnection dbConnection;
-    Connection con;
+    private final DBConnection dbConnection;
+    private final Connection con;
 
     public DatabaseManager() throws SQLException {
         dbConnection = DBConnection.getInstance();
@@ -20,16 +21,9 @@ public class DatabaseManager implements CRUD {
     @Override
     public <T> boolean create(T obj) {
         boolean result = false;
-        String[] columnNames;
-        String[] values;
-
-        DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
-        String tableName = tableInfo.tableName;
-        String[] fieldNames = tableInfo.fieldNames;
-        Class<?>[] fieldTypes = tableInfo.fieldTypes;
-
-        columnNames = Arrays.copyOfRange(fieldNames, 1, fieldNames.length);
-        values = new String[columnNames.length];
+        String[] columnNames = getColumnNames(obj);
+        String[] values = getValues(obj);
+        String tableName = getTableName(obj);
 
         for (int i = 0; i < columnNames.length; i++) {
             values[i] = "?";
@@ -38,27 +32,7 @@ public class DatabaseManager implements CRUD {
         String sql = String.format("INSERT INTO %s (%s) VALUES (%s)", tableName, String.join(", ", columnNames), String.join(", ", values));
 
         try (PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            int index = 1;
-            for (int i = 1; i < fieldNames.length; i++) {
-                String fieldName = fieldNames[i];
-                Class<?> fieldType = fieldTypes[i];
-                String getterName = "get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
-                Method getter = obj.getClass().getMethod(getterName);
-                Object value = getter.invoke(obj);
-                if (fieldType == double.class) {
-                    stmt.setDouble(index++, (Double) value);
-                } else if (fieldType == long.class) {
-                    stmt.setLong(index++, (Long) value);
-                } else if (fieldType == int.class) {
-                    stmt.setInt(index++, (Integer) value);
-                } else if (fieldType == String.class) {
-                    stmt.setString(index++, (String) value);
-                } else if (fieldType == Timestamp.class) {
-                    stmt.setTimestamp(index++, (Timestamp) value);
-                } else {
-                    throw new IllegalArgumentException("Unsupported field type: " + fieldType.getName());
-                }
-            }
+            setValues(stmt, obj);
             stmt.executeUpdate();
             result = true;
         } catch (SQLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
@@ -70,11 +44,10 @@ public class DatabaseManager implements CRUD {
 
     @Override
     public <T> T get(Class<T> type, long id) {
-        T result = null;
-
         DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(type);
         String tableName = tableInfo.tableName;
         String[] fieldNames = tableInfo.fieldNames;
+        T result = null;
 
         String sql = String.format("SELECT %s FROM %s WHERE %s = ?", String.join(", ", fieldNames), tableName, fieldNames[0]);
 
@@ -82,11 +55,10 @@ public class DatabaseManager implements CRUD {
             stmt.setLong(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    result = type.getDeclaredConstructor().newInstance();
-
+                    result = getObjectFromResultSet(rs, type);
                 }
             }
-        } catch (SQLException | ReflectiveOperationException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -95,65 +67,35 @@ public class DatabaseManager implements CRUD {
 
     @Override
     public <T> List<T> getAll(Class<T> type) {
-        List<T> result = new ArrayList<>();
-
         DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(type);
         String tableName = tableInfo.tableName;
         String[] fieldNames = tableInfo.fieldNames;
-        Class<?>[] fieldTypes = tableInfo.fieldTypes;
+        List<T> result = new ArrayList<>();
 
         String sql = String.format("SELECT %s FROM %s", String.join(", ", fieldNames), tableName);
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    T obj = type.getDeclaredConstructor().newInstance();
-                    for(int i = 0; i < fieldNames.length; i++) {
-                        String fieldName = fieldNames[i];
-                        String setterName = "set" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
-                        Method setter = type.getMethod(setterName, fieldTypes[i]);
-                        if (fieldName.contains("Id")) {
-                            long value = rs.getLong(fieldName);
-                            setter.invoke(obj, value);
-                        } else if (fieldName.contains("Price")) {
-                            double value = rs.getDouble(fieldName);
-                            setter.invoke(obj, value);
-                        } else if (fieldName.contains("Date") || fieldName.contains("date")) {
-                            Timestamp value = rs.getTimestamp(fieldName);
-                            setter.invoke(obj, value);
-                        } else {
-                            try {
-                                String value = rs.getString(fieldName);
-                                setter.invoke(obj, value);
-                            } catch (IllegalArgumentException e) {
-                                int value = rs.getInt(fieldName);
-                                setter.invoke(obj, value);
-                            }
-                        }
-                    }
+                    T obj = getObjectFromResultSet(rs, type);
                     result.add(obj);
                 }
             }
-        } catch (SQLException | ReflectiveOperationException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
         return result;
     }
 
-
     @Override
-    public <T> boolean update(T obj) {
+    public boolean update(Object obj) {
         boolean result = false;
+        String tableName = getTableName(obj);
+        String[] fieldNames = getFieldNames(obj);
+        String primaryKeyFieldName = getPrimaryKeyFieldName(obj);
 
-        // Determine the table name, field names, and primary key field name for the object type
-        DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
-        String tableName = tableInfo.tableName;
-        String[] fieldNames = tableInfo.fieldNames;
-        Class<?>[] fieldTypes = tableInfo.fieldTypes;
-        String primaryKeyFieldName = fieldNames[0];
 
-        // Construct the SQL statement for updating the object in the database
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE ").append(tableName).append(" SET ");
         for (String fieldName : fieldNames) {
@@ -163,49 +105,21 @@ public class DatabaseManager implements CRUD {
         }
         sb.delete(sb.length() - 2, sb.length());
         sb.append(" WHERE ").append(primaryKeyFieldName).append(" = ?");
+
         String sql = sb.toString();
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-
-            // Set the parameter values for the prepared statement
-            int index = 1;
-            for (int i = 0; i < fieldNames.length; i++) {
-                String fieldName = fieldNames[i];
-                if (!fieldName.equals(primaryKeyFieldName)) {
-                    Method getter = obj.getClass().getMethod("get" + capitalize(fieldName));
-                    Object value = getter.invoke(obj);
-                    if (value != null) {
-                        if (fieldTypes[i] == Timestamp.class) {
-                            stmt.setTimestamp(index++, (Timestamp) value);
-                        } else {
-                            stmt.setObject(index++, value);
-                        }
-                    } else {
-                        stmt.setNull(index++, Types.NULL);
-                    }
-                }
-            }
-            Method getter = obj.getClass().getMethod("get" + capitalize(primaryKeyFieldName));
-            Object primaryKeyValue = getter.invoke(obj);
-            stmt.setObject(index, primaryKeyValue);
-
-            // Execute the prepared statement and set the result to true if the update was successful
-            int updateCount = stmt.executeUpdate();
-            if (updateCount > 0) {
-                result = true;
-            }
-        } catch (SQLException | ReflectiveOperationException e) {
+            setValues(stmt, obj);
+            stmt.setLong(fieldNames.length, getValueByFieldName(obj, primaryKeyFieldName));
+            stmt.executeUpdate();
+            result = true;
+        } catch (SQLException | IllegalAccessException e) {
             e.printStackTrace();
+        } catch (InvocationTargetException | NoSuchMethodException e) {
+            throw new RuntimeException(e);
         }
-
         return result;
     }
-
-    // Helper method to capitalize the first letter of a string
-    private String capitalize(String s) {
-        return s.substring(0, 1).toUpperCase() + s.substring(1);
-    }
-
 
     @Override
     public <T> boolean delete(Class<T> type, long id) {
@@ -216,16 +130,123 @@ public class DatabaseManager implements CRUD {
 
         String sql = String.format("DELETE FROM %s WHERE %s = ?", tableName, fieldNames[0]);
 
-        try {
-            try (PreparedStatement stmt = con.prepareStatement(sql)) {
-                stmt.setObject(1, id);
-                int rowsAffected = stmt.executeUpdate();
-                result = (rowsAffected > 0);
-            }
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+            result = true;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return result;
     }
+
+    private String[] getFieldNames(Object obj) {
+        String[] result;
+        DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
+        result = tableInfo.fieldNames;
+        return result;
+    }
+
+    private String getPrimaryKeyFieldName(Object obj) {
+        DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
+        return tableInfo.fieldNames[0];
+    }
+
+    private String[] getColumnNames(Object obj) {
+        String[] fieldNames = getFieldNames(obj);
+        return Arrays.copyOfRange(fieldNames, 1, fieldNames.length);
+    }
+
+    private String[] getValues(Object obj) {
+        return new String[getColumnNames(obj).length];
+    }
+
+    private <T> String getTableName(T obj) {
+        System.out.println(obj.getClass());
+        DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
+        return tableInfo.tableName;
+    }
+
+    private long getValueByFieldName(Object obj, String fieldName) {
+        long result = 0;
+        try {
+            Method getterMethod = obj.getClass().getDeclaredMethod("get" + capitalize(fieldName));
+            result = (long) getterMethod.invoke(obj);
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    private String capitalize(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
+    private <T> void setValues(PreparedStatement stmt, T obj) throws SQLException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
+        String[] fieldNames = getFieldNames(obj);
+        Class<?>[] fieldTypes = getFieldTypes(obj);
+        int index = 1;
+        for (int i = 1; i < fieldNames.length; i++) {
+            String fieldName = fieldNames[i];
+            Class<?> fieldType = fieldTypes[i];
+            String getterName = "get" + Character.toUpperCase(fieldName.charAt(0)) + fieldName.substring(1);
+            Method getter = obj.getClass().getMethod(getterName);
+            Object value = getter.invoke(obj);
+            if (fieldType == String.class) {
+                stmt.setString(index, (String) value);
+            } else if (fieldType == long.class) {
+                stmt.setLong(index, (long) value);
+            } else if (fieldType == int.class) {
+                stmt.setInt(index, (int) value);
+            } else if (fieldType == boolean.class) {
+                stmt.setBoolean(index, (boolean) value);
+            } else if (fieldType == double.class) {
+                stmt.setDouble(index, (double) value);
+            } else if (fieldType == float.class) {
+                stmt.setFloat(index, (float) value);
+            } else if (fieldType == Date.class) {
+                stmt.setDate(index, (Date) value);
+            } else if (fieldType == Time.class) {
+                stmt.setTime(index, (Time) value);
+            } else if (fieldType == Timestamp.class) {
+                stmt.setTimestamp(index, (Timestamp) value);
+            } else {
+                throw new RuntimeException("Unsupported type: " + fieldType);
+            }
+            index++;
+        }
+    }
+
+    private <T> Class<?>[] getFieldTypes(T obj) {
+        DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
+        return tableInfo.fieldTypes;
+    }
+
+    private <T> T getObjectFromResultSet(ResultSet rs, Class<T> type) throws SQLException {
+        T result = null;
+        try {
+            result = type.getDeclaredConstructor().newInstance();
+            Field[] fields = type.getDeclaredFields();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                Object value = rs.getObject(field.getName());
+                if (value instanceof BigDecimal && field.getType() == long.class) {
+                    value = ((BigDecimal) value).longValue();
+                } else if (value instanceof BigDecimal && field.getType() == int.class) {
+                    value = ((BigDecimal) value).intValue();
+                } else if (value instanceof BigDecimal && field.getType() == double.class) {
+                    value = ((BigDecimal) value).doubleValue();
+                } else if (value instanceof BigDecimal && field.getType() == float.class) {
+                    value = ((BigDecimal) value).floatValue();
+                }
+                field.set(result, value);
+            }
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
+
 }
