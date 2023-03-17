@@ -10,16 +10,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseManager implements CRUD {
-    private final DBConnection dbConnection;
     private final Connection con;
 
     public DatabaseManager() throws SQLException {
-        dbConnection = DBConnection.getInstance();
         con = DBConnection.getConnection();
+        con.setAutoCommit(false);
     }
 
     @Override
-    public <T> boolean create(T obj) {
+    public <T> boolean create(T obj) throws SQLException {
         boolean result = false;
         String[] columnNames = getColumnNames(obj);
         String[] values = getValues(obj);
@@ -36,6 +35,7 @@ public class DatabaseManager implements CRUD {
             stmt.executeUpdate();
             result = true;
         } catch (SQLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+            con.rollback();
             e.printStackTrace();
         }
 
@@ -43,7 +43,7 @@ public class DatabaseManager implements CRUD {
     }
 
     @Override
-    public <T> T get(Class<T> type, long id) {
+    public <T> T get(Class<T> type, long id) throws SQLException {
         DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(type);
         String tableName = tableInfo.tableName;
         String[] fieldNames = tableInfo.fieldNames;
@@ -59,6 +59,7 @@ public class DatabaseManager implements CRUD {
                 }
             }
         } catch (SQLException e) {
+            con.rollback();
             e.printStackTrace();
         }
 
@@ -66,7 +67,7 @@ public class DatabaseManager implements CRUD {
     }
 
     @Override
-    public <T> List<T> getAll(Class<T> type) {
+    public <T> List<T> getAll(Class<T> type) throws SQLException {
         DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(type);
         String tableName = tableInfo.tableName;
         String[] fieldNames = tableInfo.fieldNames;
@@ -82,6 +83,7 @@ public class DatabaseManager implements CRUD {
                 }
             }
         } catch (SQLException e) {
+            con.rollback();
             e.printStackTrace();
         }
 
@@ -89,7 +91,7 @@ public class DatabaseManager implements CRUD {
     }
 
     @Override
-    public boolean update(Object obj) {
+    public boolean update(Object obj) throws SQLException {
         boolean result = false;
         String tableName = getTableName(obj);
         String[] fieldNames = getFieldNames(obj);
@@ -115,14 +117,16 @@ public class DatabaseManager implements CRUD {
             result = true;
         } catch (SQLException | IllegalAccessException e) {
             e.printStackTrace();
+            con.rollback();
         } catch (InvocationTargetException | NoSuchMethodException e) {
+            con.rollback();
             throw new RuntimeException(e);
         }
         return result;
     }
 
     @Override
-    public <T> boolean delete(Class<T> type, long id) {
+    public <T> boolean delete(Class<T> type, long id) throws SQLException {
         boolean result = false;
         DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(type);
         String tableName = tableInfo.tableName;
@@ -135,6 +139,7 @@ public class DatabaseManager implements CRUD {
             stmt.executeUpdate();
             result = true;
         } catch (SQLException e) {
+            con.rollback();
             e.printStackTrace();
         }
         return result;
@@ -204,10 +209,6 @@ public class DatabaseManager implements CRUD {
                 stmt.setDouble(index, (double) value);
             } else if (fieldType == float.class) {
                 stmt.setFloat(index, (float) value);
-            } else if (fieldType == Date.class) {
-                stmt.setDate(index, (Date) value);
-            } else if (fieldType == Time.class) {
-                stmt.setTime(index, (Time) value);
             } else if (fieldType == Timestamp.class) {
                 stmt.setTimestamp(index, (Timestamp) value);
             } else {
@@ -246,7 +247,4 @@ public class DatabaseManager implements CRUD {
         }
         return result;
     }
-
-
-
 }
