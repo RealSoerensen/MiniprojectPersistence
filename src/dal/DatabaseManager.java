@@ -32,7 +32,8 @@ public class DatabaseManager implements CRUD {
 
         try (PreparedStatement stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             setValues(stmt, obj);
-            stmt.executeUpdate();
+            stmt.execute();
+            con.commit();
             result = true;
         } catch (SQLException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             con.rollback();
@@ -167,7 +168,6 @@ public class DatabaseManager implements CRUD {
     }
 
     private <T> String getTableName(T obj) {
-        System.out.println(obj.getClass());
         DatabaseUtils.TableInfo tableInfo = DatabaseUtils.getTableInfo(obj.getClass());
         return tableInfo.tableName;
     }
@@ -199,14 +199,14 @@ public class DatabaseManager implements CRUD {
             Object value = getter.invoke(obj);
             if (fieldType == String.class) {
                 stmt.setString(index, (String) value);
-            } else if (fieldType == long.class) {
-                stmt.setLong(index, (long) value);
+            } else if (fieldType == Double.class || fieldType == double.class) {
+                stmt.setDouble(index, ((Number) value).doubleValue());
+            } else if (fieldType == Long.class || fieldType == long.class) {
+                stmt.setLong(index, ((Number) value).longValue());
             } else if (fieldType == int.class) {
                 stmt.setInt(index, (int) value);
             } else if (fieldType == boolean.class) {
                 stmt.setBoolean(index, (boolean) value);
-            } else if (fieldType == double.class) {
-                stmt.setDouble(index, (double) value);
             } else if (fieldType == float.class) {
                 stmt.setFloat(index, (float) value);
             } else if (fieldType == Timestamp.class) {

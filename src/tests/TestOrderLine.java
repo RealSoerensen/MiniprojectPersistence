@@ -49,8 +49,8 @@ public class TestOrderLine {
     @Test
     public void testCreate() throws SQLException {
         // Arrange
-        OrderLine orderLine = new OrderLine(1, 1, 1, 1);
-        OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
+        OrderLine orderLine = new OrderLine(1, 1, 0.5, 1);
+        OrderLine orderLine2 = new OrderLine(2, 2, 0.3, 1);
 
         // Act
         boolean result = orderLineCtr.create(orderLine);
@@ -64,8 +64,8 @@ public class TestOrderLine {
     @Test
     public void testGet() throws SQLException {
         // Arrange
-        OrderLine orderLine = new OrderLine(1, 1, 1, 1);
-        OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
+        OrderLine orderLine = new OrderLine(1, 1, 0.5, 1);
+        OrderLine orderLine2 = new OrderLine(2, 2, 0.3, 1);
         orderLineCtr.create(orderLine);
         orderLineCtr.create(orderLine2);
         int id = 2;
@@ -80,8 +80,8 @@ public class TestOrderLine {
     @Test
     public void testUpdate() throws SQLException {
         // Arrange
-        OrderLine orderLine = new OrderLine(1, 1, 1, 1);
-        OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
+        OrderLine orderLine = new OrderLine(1, 1, 0.5, 1);
+        OrderLine orderLine2 = new OrderLine(2, 2, 0.3, 1);
         orderLineCtr.create(orderLine);
         orderLineCtr.create(orderLine2);
         int id = 2;
@@ -98,8 +98,8 @@ public class TestOrderLine {
     @Test
     public void testDelete() throws SQLException {
         // Arrange
-        OrderLine orderLine = new OrderLine(1, 1, 1, 1);
-        OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
+        OrderLine orderLine = new OrderLine(1, 1, 0.5, 1);
+        OrderLine orderLine2 = new OrderLine(2, 2, 0.3, 1);
         orderLineCtr.create(orderLine);
         orderLineCtr.create(orderLine2);
         int id = 2;
@@ -114,8 +114,8 @@ public class TestOrderLine {
     @Test
     public void testGetAll() throws SQLException {
         // Arrange
-        OrderLine orderLine = new OrderLine(1, 1, 1, 1);
-        OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
+        OrderLine orderLine = new OrderLine(1, 1, 0.5, 1);
+        OrderLine orderLine2 = new OrderLine(2, 2, 0.3, 1);
         orderLineCtr.create(orderLine);
         orderLineCtr.create(orderLine2);
 

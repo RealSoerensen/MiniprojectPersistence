@@ -52,7 +52,7 @@ CREATE TABLE SaleOrder (
     date datetime2 NOT NULL,
     deliveryStatus varchar(50) NOT NULL,
     deliveryDate datetime2 NOT NULL,
-    totalPrice decimal(10,2) NOT NULL,
+    paymentDate datetime2 NOT NULL,
     customerId int NOT NULL,
     orderLineId int NOT NULL,
 

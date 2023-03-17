@@ -12,6 +12,5 @@ INSERT INTO Product (name, brand, purchasePrice, salesPrice, countryOfOrigin, mi
 INSERT INTO OrderLine (quantity, discount, productId) VALUES (1, 0, 1);
 INSERT INTO OrderLine (quantity, discount, productId) VALUES (2, 0, 2);
 
-INSERT INTO SaleOrder (date, deliveryStatus, deliveryDate, totalPrice, customerId, orderLineId) VALUES ('2020-01-01', 'Delivered', '2020-01-02', 200, 1, 1);
-INSERT INTO SaleOrder (date, deliveryStatus, deliveryDate, totalPrice, customerId, orderLineId) VALUES ('2020-01-02', 'Delivered', '2020-01-03', 600, 2, 2);
-
+INSERT INTO SaleOrder (date, deliveryStatus, deliveryDate, paymentDate, customerId, orderLineId) VALUES ('2020-01-01', 'Delivered', '2020-01-02', '2020-01-03', 1, 1);
+INSERT INTO SaleOrder (date, deliveryStatus, deliveryDate, paymentDate, customerId, orderLineId) VALUES ('2020-01-02', 'Delivered', '2020-01-03', '2020-01-03', 2, 2);

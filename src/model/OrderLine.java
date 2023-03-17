@@ -3,10 +3,10 @@ package model;
 public class OrderLine {
 	private long orderLineId;
 	private int quantity;
-	private long discount;
+	private double discount;
 	private long productId;
 	
-	public OrderLine(long orderLineId, int quantity, long discount, long productId){
+	public OrderLine(long orderLineId, int quantity, double discount, long productId){
 		this.orderLineId = orderLineId;
 		this.quantity = quantity;
 		this.discount = discount;
@@ -24,10 +24,10 @@ public class OrderLine {
 		this.orderLineId = orderLineId;
 	}
 
-	public long getDiscount() {
+	public double getDiscount() {
 		return discount;
 	}
-	public void setDiscount(long discount) {
+	public void setDiscount(double discount) {
 		this.discount = discount;
 	}
 

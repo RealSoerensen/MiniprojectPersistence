@@ -7,14 +7,16 @@ public class SaleOrder {
 	private Timestamp date;
 	private String deliveryStatus;
 	private Timestamp deliveryDate;
+	private Timestamp paymentDate;
 	private long customerId;
 	private long orderLineId;
 
-	public SaleOrder(long saleOrderId, Timestamp date, String deliveryStatus, Timestamp deliveryDate, long customerId, long orderLineId) {
+	public SaleOrder(long saleOrderId, Timestamp date, String deliveryStatus, Timestamp deliveryDate, Timestamp paymentDate, long customerId, long orderLineId) {
 		this.saleOrderId = saleOrderId;
 		this.date = date;
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryDate = deliveryDate;
+		this.paymentDate = paymentDate;
 		this.customerId = customerId;
 		this.orderLineId = orderLineId;
 	}
@@ -68,5 +70,13 @@ public class SaleOrder {
 
 	public void setOrderLineId(long orderLineId) {
 		this.orderLineId = orderLineId;
+	}
+
+	public Timestamp getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(Timestamp paymentDate) {
+		this.paymentDate = paymentDate;
 	}
 }

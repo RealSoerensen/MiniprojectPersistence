@@ -36,12 +36,12 @@ public class DatabaseUtils {
             fieldTypes = new Class<?>[]{long.class, String.class, String.class, double.class, double.class, String.class, int.class, int.class, String.class, String.class, long.class};
         } else if (type == SaleOrder.class) {
             tableName = "SaleOrder";
-            fieldNames = new String[]{"saleOrderId", "date", "deliveryStatus", "deliveryDate", "customerId", "orderLineId"};
-            fieldTypes = new Class<?>[]{long.class, Timestamp.class, String.class, Timestamp.class, long.class, long.class};
+            fieldNames = new String[]{"saleOrderId", "date", "deliveryStatus", "deliveryDate", "paymentDate", "customerId", "orderLineId"};
+            fieldTypes = new Class<?>[]{long.class, Timestamp.class, String.class, Timestamp.class, Timestamp.class, long.class, long.class};
         } else if (type == OrderLine.class) {
             tableName = "OrderLine";
             fieldNames = new String[]{"orderLineId", "discount", "productId", "quantity"};
-            fieldTypes = new Class<?>[]{long.class, long.class, long.class, int.class};
+            fieldTypes = new Class<?>[]{long.class, double.class, long.class, int.class};
         } else {
             throw new IllegalArgumentException("Unknown object type: " + type.getClass());
         }

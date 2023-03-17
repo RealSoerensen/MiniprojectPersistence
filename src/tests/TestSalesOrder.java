@@ -53,7 +53,8 @@ public class TestSalesOrder {
     @Test
     public void testCreate() throws SQLException {
         // Arrange
-        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, 1, 1);
+        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, timestamp, 1, 1);
+
 
         // Act
         boolean result = saleOrderCtr.create(saleOrder);
@@ -65,7 +66,7 @@ public class TestSalesOrder {
     @Test
     public void testGet() throws SQLException {
         // Arrange
-        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, 1, 1);
+        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
 
         int id = 1;
@@ -80,7 +81,7 @@ public class TestSalesOrder {
     @Test
     public void testGetAll() throws SQLException {
         // Arrange
-        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test",  timestamp, 1, 1);
+        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
 
         // Act
@@ -93,9 +94,9 @@ public class TestSalesOrder {
     @Test
     public void testUpdate() throws SQLException {
         // Arrange
-        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test",  timestamp, 1, 1);
+        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
-        SaleOrder saleOrder2 = new SaleOrder(1, timestamp, "test2", timestamp, 1, 1);
+        SaleOrder saleOrder2 = new SaleOrder(1, timestamp, "test2", timestamp, timestamp, 1, 1);
 
         // Act
         boolean result = saleOrderCtr.update(saleOrder2);
@@ -107,7 +108,7 @@ public class TestSalesOrder {
     @Test
     public void testDelete() throws SQLException {
         // Arrange
-        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, 1, 1);
+        SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
 
         // Act
