@@ -54,7 +54,7 @@ public class TestProducts {
     }
 
     @Test
-    public void testCreate() {
+    public void testCreate() throws SQLException {
         // Arrange
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
@@ -66,7 +66,7 @@ public class TestProducts {
     }
 
     @Test
-    public void testProductGet() {
+    public void testProductGet() throws SQLException {
         // Arrange
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
         productController.create(product);
@@ -79,7 +79,7 @@ public class TestProducts {
     }
 
     @Test
-    public void testGetAll() {
+    public void testGetAll() throws SQLException {
         // Arrange
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
@@ -92,7 +92,7 @@ public class TestProducts {
     }
 
     @Test
-    public void testProductContainerUpdate() {
+    public void testProductContainerUpdate() throws SQLException {
         // Arrange
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
@@ -108,7 +108,7 @@ public class TestProducts {
     }
 
     @Test
-    public void testProductContainerDelete() {
+    public void testProductContainerDelete() throws SQLException {
         // Arrange
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
@@ -122,7 +122,7 @@ public class TestProducts {
     }
 
     @Test
-    public void testProductContainerGetAll() {
+    public void testProductContainerGetAll() throws SQLException {
         // Arrange
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
         Product product2 = new Product(2, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");

@@ -3,6 +3,8 @@ package controller;
 import dal.DatabaseManager;
 import model.Supplier;
 
+import java.sql.SQLException;
+
 public class SupplierController implements SupplierCtrIF{
     private final DatabaseManager supplierDBIF;
 
@@ -22,7 +24,7 @@ public class SupplierController implements SupplierCtrIF{
     }
 
     @Override
-    public Supplier get(long id) {
+    public Supplier get(long id) throws SQLException {
         return supplierDBIF.get(Supplier.class, id);
     }
 

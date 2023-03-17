@@ -26,7 +26,7 @@ public class TestCustomer {
     }
 
     @Test
-    public void testCreate() {
+    public void testCreate() throws SQLException {
         // Arrange
         Customer customer1 = new Customer(1, "Test", "Test", "Test");
         Customer customer2 = new Customer(2, "Test", "Test", "Test" );
@@ -41,7 +41,7 @@ public class TestCustomer {
     }
 
     @Test
-    public void testGet() {
+    public void testGet() throws SQLException {
         // Arrange
         Customer customer1 = new Customer(1, "Test", "Test", "Test");
         Customer customer2 = new Customer(2, "Test", "Test", "Test" );
@@ -57,7 +57,7 @@ public class TestCustomer {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws SQLException {
         // Arrange
         Customer customer1 = new Customer(1, "Test", "Test", "Test");
         Customer customer2 = new Customer(2, "Test", "Test", "Test" );
@@ -75,7 +75,7 @@ public class TestCustomer {
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws SQLException {
         // Arrange
         Customer customer1 = new Customer(1, "Test", "Test", "Test");
         Customer customer2 = new Customer(2, "Test", "Test", "Test" );
@@ -91,7 +91,7 @@ public class TestCustomer {
     }
 
     @Test
-    public void testGetAll() {
+    public void testGetAll() throws SQLException {
         // Arrange
         Customer customer1 = new Customer(1, "Test", "Test", "Test");
         Customer customer2 = new Customer(2, "Test", "Test", "Test" );

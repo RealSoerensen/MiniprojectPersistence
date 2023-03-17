@@ -39,7 +39,7 @@ public class TestSupplier {
     }
 
     @Test
-    void testGet() {
+    void testGet() throws SQLException {
         // Arrange
         Supplier supplier = new Supplier(1, "Test", "Test", "Test", "Test", "Test");
         Supplier supplier2 = new Supplier(2, "Test", "Test", "Test", "Test", "Test");

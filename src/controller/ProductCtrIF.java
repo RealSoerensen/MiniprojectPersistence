@@ -2,16 +2,17 @@ package controller;
 
 import model.Product;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ProductCtrIF {
-    boolean create(Product obj);
+    boolean create(Product obj) throws SQLException;
 
-    Product get(long id);
+    Product get(long id) throws SQLException;
 
-    List<Product> getAll();
+    List<Product> getAll() throws SQLException;
 
-    boolean update(Product obj);
+    boolean update(Product obj) throws SQLException;
 
-    boolean delete(long id);
+    boolean delete(long id) throws SQLException;
 }

@@ -39,7 +39,7 @@ public class TestOrderLine {
 
 
     @BeforeEach
-    public void setupEach() {
+    public void setupEach() throws SQLException {
         Supplier supplier = new Supplier(1, "TestName", "TestAddress", "TestCountry", "TestPhone", "TestEmail");
         supplierCtr.create(supplier);
         Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
@@ -47,7 +47,7 @@ public class TestOrderLine {
     }
 
     @Test
-    public void testCreate() {
+    public void testCreate() throws SQLException {
         // Arrange
         OrderLine orderLine = new OrderLine(1, 1, 1, 1);
         OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
@@ -62,7 +62,7 @@ public class TestOrderLine {
     }
 
     @Test
-    public void testGet() {
+    public void testGet() throws SQLException {
         // Arrange
         OrderLine orderLine = new OrderLine(1, 1, 1, 1);
         OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
@@ -78,7 +78,7 @@ public class TestOrderLine {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws SQLException {
         // Arrange
         OrderLine orderLine = new OrderLine(1, 1, 1, 1);
         OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
@@ -96,7 +96,7 @@ public class TestOrderLine {
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws SQLException {
         // Arrange
         OrderLine orderLine = new OrderLine(1, 1, 1, 1);
         OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);
@@ -112,7 +112,7 @@ public class TestOrderLine {
     }
 
     @Test
-    public void testGetAll() {
+    public void testGetAll() throws SQLException {
         // Arrange
         OrderLine orderLine = new OrderLine(1, 1, 1, 1);
         OrderLine orderLine2 = new OrderLine(2, 2, 2, 1);

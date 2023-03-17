@@ -51,7 +51,7 @@ public class TestSalesOrder {
     }
 
     @Test
-    public void testCreate() {
+    public void testCreate() throws SQLException {
         // Arrange
         SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, 1, 1);
 
@@ -63,7 +63,7 @@ public class TestSalesOrder {
     }
 
     @Test
-    public void testGet() {
+    public void testGet() throws SQLException {
         // Arrange
         SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
@@ -78,7 +78,7 @@ public class TestSalesOrder {
     }
 
     @Test
-    public void testGetAll() {
+    public void testGetAll() throws SQLException {
         // Arrange
         SaleOrder saleOrder = new SaleOrder(1, timestamp, "test",  timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
@@ -91,7 +91,7 @@ public class TestSalesOrder {
     }
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws SQLException {
         // Arrange
         SaleOrder saleOrder = new SaleOrder(1, timestamp, "test",  timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);
@@ -105,7 +105,7 @@ public class TestSalesOrder {
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete() throws SQLException {
         // Arrange
         SaleOrder saleOrder = new SaleOrder(1, timestamp, "test", timestamp, 1, 1);
         saleOrderCtr.create(saleOrder);

@@ -3,6 +3,7 @@ package controller;
 import dal.DatabaseManager;
 import model.SaleOrder;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,27 +19,27 @@ public class SaleOrderController implements SaleOrderCtrIF {
     }
 
     @Override
-    public boolean create(SaleOrder obj) {
+    public boolean create(SaleOrder obj) throws SQLException {
         return orderDBIF.create(obj);
     }
 
     @Override
-    public SaleOrder get(long id) {
+    public SaleOrder get(long id) throws SQLException {
         return orderDBIF.get(SaleOrder.class, id);
     }
 
     @Override
-    public List<SaleOrder> getAll() {
+    public List<SaleOrder> getAll() throws SQLException {
         return new ArrayList<>(orderDBIF.getAll(SaleOrder.class));
     }
 
     @Override
-    public boolean update(SaleOrder obj) {
+    public boolean update(SaleOrder obj) throws SQLException {
         return orderDBIF.update(obj);
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(long id) throws SQLException {
         return orderDBIF.delete(SaleOrder.class, id);
     }
 }
