@@ -8,38 +8,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerController implements CustomerCtrIF {
-    private DatabaseManager GenericDAO;
+    private DatabaseManager data;
 
-    public CustomerController(DatabaseManager GenericDAO) {
-        setCustomerCtrIF(GenericDAO);
+    public CustomerController(DatabaseManager data) {
+        setCustomerCtrIF(data);
     }
 
-    private void setCustomerCtrIF(DatabaseManager GenericDAO) {
-        this.GenericDAO = GenericDAO;
+    private void setCustomerCtrIF(DatabaseManager dbManager) {
+        this.data = dbManager;
     }
 
     @Override
     public boolean create(Customer obj) throws SQLException {
-        return GenericDAO.create(obj);
+        return data.create(obj);
     }
 
     @Override
     public Customer get(long id) throws SQLException {
-        return GenericDAO.get(Customer.class, id);
+        return data.get(Customer.class, id);
     }
 
     @Override
     public List<Customer> getAll() throws SQLException {
-        return new ArrayList<>(GenericDAO.getAll(Customer.class));
+        return new ArrayList<>(data.getAll(Customer.class));
     }
 
     @Override
     public boolean update(Customer obj) throws SQLException {
-        return GenericDAO.update(obj);
+        return data.update(obj);
     }
 
     @Override
     public boolean delete(long id) throws SQLException {
-        return GenericDAO.delete(Customer.class, id);
+        return data.delete(Customer.class, id);
     }
 }

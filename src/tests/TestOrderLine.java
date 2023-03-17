@@ -18,10 +18,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TestOrderLine {
-    final DatabaseManager genericDAO = new DatabaseManager();
-    final OrderLineController orderLineCtr = new OrderLineController(genericDAO);
-    final SupplierController supplierCtr = new SupplierController(genericDAO);
-    final ProductController productCtr = new ProductController(genericDAO);
+    final DatabaseManager dbManager = new DatabaseManager();
+    final OrderLineController orderLineCtr = new OrderLineController(dbManager);
+    final SupplierController supplierCtr = new SupplierController(dbManager);
+    final ProductController productCtr = new ProductController(dbManager);
     static final DBConnection dbConnection;
 
     static {

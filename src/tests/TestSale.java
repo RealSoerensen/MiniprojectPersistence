@@ -14,12 +14,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestSale {
-    final DatabaseManager genericDAO = new DatabaseManager();
-    final OrderLineController orderLineCtr = new OrderLineController(genericDAO);
-    final SupplierController supplierCtr = new SupplierController(genericDAO);
-    final ProductController productCtr = new ProductController(genericDAO);
-    final SaleOrderController saleOrderCtr = new SaleOrderController(genericDAO);
-    final CustomerController customerCtr = new CustomerController(genericDAO);
+    final DatabaseManager dbManager = new DatabaseManager();
+    final OrderLineController orderLineCtr = new OrderLineController(dbManager);
+    final SupplierController supplierCtr = new SupplierController(dbManager);
+    final ProductController productCtr = new ProductController(dbManager);
+    final SaleOrderController saleOrderCtr = new SaleOrderController(dbManager);
+    final CustomerController customerCtr = new CustomerController(dbManager);
     static final DBConnection dbConnection;
 
     static {
@@ -128,7 +128,7 @@ public class TestSale {
     }
 
     @AfterAll
-    public static void tearDownAll() throws SQLException {
+    public static void tearDownAll() {
         DBConnection.closeConnection();
     }
 }
