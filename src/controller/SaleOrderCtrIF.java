@@ -1,17 +1,17 @@
 package controller;
 
-import org.junit.jupiter.api.Order;
+import model.SaleOrder;
 
 import java.util.List;
 
 public interface SaleOrderCtrIF {
-    boolean create(Order obj);
+    boolean create(SaleOrder obj);
 
-    Order get(long id);
+    SaleOrder get(long id);
 
-    List<Order> getAll();
+    List<SaleOrder> getAll();
 
-    boolean update(Order obj);
+    boolean update(SaleOrder obj);
 
     boolean delete(long id);
 }

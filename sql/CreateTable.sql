@@ -48,7 +48,7 @@ CREATE TABLE OrderLine (
 )
 
 CREATE TABLE SaleOrder (
-    orderId int NOT NULL IDENTITY(1,1),
+    saleOrderId int NOT NULL IDENTITY(1,1),
     date datetime2 NOT NULL,
     deliveryStatus varchar(50) NOT NULL,
     deliveryDate datetime2 NOT NULL,
@@ -56,7 +56,7 @@ CREATE TABLE SaleOrder (
     customerId int NOT NULL,
     orderLineId int NOT NULL,
 
-    CONSTRAINT PK_SaleOrder PRIMARY KEY (orderId),
+    CONSTRAINT PK_SaleOrder PRIMARY KEY (saleOrderid),
     CONSTRAINT FK_SaleOrder_Customer FOREIGN KEY (customerId) REFERENCES Customer(customerId),
     CONSTRAINT FK_SaleOrder_OrderLine FOREIGN KEY (orderLineId) REFERENCES OrderLine(orderLineId)
 )

@@ -1,19 +1,19 @@
 package controller;
 
-import dal.product.ProductDBIF;
+import dal.DatabaseManager;
 import model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductController implements ProductCtrIF{
-    private ProductDBIF productDBIF;
+    private DatabaseManager productDBIF;
 
-    public ProductController(ProductDBIF productCtrIF) {
+    public ProductController(DatabaseManager productCtrIF) {
         setProductCtrIF(productCtrIF);
     }
 
-    private void setProductCtrIF(ProductDBIF productCtrIF) {
+    private void setProductCtrIF(DatabaseManager productCtrIF) {
         this.productDBIF = productCtrIF;
     }
 
@@ -24,16 +24,12 @@ public class ProductController implements ProductCtrIF{
 
     @Override
     public Product get(long id) {
-        return (Product) productDBIF.get(id);
+        return productDBIF.get(Product.class, id);
     }
 
     @Override
     public List<Product> getAll() {
-        List<Product> products = new ArrayList<>();
-        for(Object obj : productDBIF.getAll()) {
-            products.add((Product) obj);
-        }
-        return products;
+        return new ArrayList<>(productDBIF.getAll(Product.class));
     }
 
     @Override
@@ -43,6 +39,6 @@ public class ProductController implements ProductCtrIF{
 
     @Override
     public boolean delete(long id) {
-        return productDBIF.delete(id);
+        return productDBIF.delete(Product.class, id);
     }
 }

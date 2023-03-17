@@ -41,18 +41,25 @@ public class DBConnection {
         return isOpen;
     }
 
-    public void resetDatabase() throws SQLException {
+    public void dropTables(){
+        // Drop tables if they exist
         Connection connection = getConnection();
-        try (Statement statement = connection.createStatement()) {
-
+        try(Statement statement = connection.createStatement()) {
             // Drop tables if they exist
             statement.addBatch("DROP TABLE IF EXISTS SaleOrder");
             statement.addBatch("DROP TABLE IF EXISTS OrderLine");
             statement.addBatch("DROP TABLE IF EXISTS Product");
             statement.addBatch("DROP TABLE IF EXISTS Supplier");
             statement.addBatch("DROP TABLE IF EXISTS Customer");
+            statement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
-            // Create tables
+    public void createTables(){
+        Connection connection = getConnection();
+        try (Statement statement = connection.createStatement()) {
             statement.addBatch("CREATE TABLE Customer (" +
                     "    customerId int NOT NULL IDENTITY(1,1)," +
                     "    name varchar(50) NOT NULL," +
@@ -101,7 +108,6 @@ public class DBConnection {
                     "    date datetime2 NOT NULL," +
                     "    deliveryStatus varchar(50) NOT NULL," +
                     "    deliveryDate datetime2 NOT NULL," +
-                    "    totalPrice decimal(10,2) NOT NULL," +
                     "    customerId int NOT NULL," +
                     "    orderLineId int NOT NULL," +
                     "" +
@@ -112,7 +118,15 @@ public class DBConnection {
 
             // Execute batch
             statement.executeBatch();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void resetDatabase() throws SQLException {
+        Connection connection = getConnection();
+        dropTables();
+        createTables();
         connection.commit();
     }
 

@@ -1,47 +1,41 @@
 package model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class SaleOrder {
-	private long orderId;
-	private Date date;
-	private Date paymentDate;
+	private long saleOrderId;
+	private Timestamp date;
 	private String deliveryStatus;
-	private Date deliveryDate;
-	private double totalPrice;
+	private Timestamp deliveryDate;
+	private long customerId;
+	private long orderLineId;
 
-	public SaleOrder(long orderId, Date date, String deliveryStatus, Date deliveryDate, double totalPrice,
-			Date paymentDate) {
-		this.orderId = orderId;
+	public SaleOrder(long saleOrderId, Timestamp date, String deliveryStatus, Timestamp deliveryDate, long customerId, long orderLineId) {
+		this.saleOrderId = saleOrderId;
 		this.date = date;
-		this.paymentDate = paymentDate;
 		this.deliveryStatus = deliveryStatus;
 		this.deliveryDate = deliveryDate;
-		this.totalPrice = totalPrice;
+		this.customerId = customerId;
+		this.orderLineId = orderLineId;
 	}
 
-	public long getOrderId() {
-		return orderId;
+	public SaleOrder() {
 	}
 
-	public void setOrderId(long orderId) {
-		this.orderId = orderId;
+	public long getSaleOrderId() {
+		return saleOrderId;
 	}
 
-	public Date getDate() {
+	public void setSaleOrderId(long saleOrderId) {
+		this.saleOrderId = saleOrderId;
+	}
+
+	public Timestamp getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
-	}
-
-	public Date getPaymentDate() {
-		return paymentDate;
-	}
-
-	public void setPaymentDate(Date paymentDate) {
-		this.paymentDate = paymentDate;
 	}
 
 	public String getDeliveryStatus() {
@@ -52,19 +46,27 @@ public class SaleOrder {
 		this.deliveryStatus = deliveryStatus;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
-	}
-
-	public Date getDeliveryDate() {
+	public Timestamp getDeliveryDate() {
 		return deliveryDate;
 	}
 
-	public void setDeliveryDate(Date deliveryDate) {
+	public void setDeliveryDate(Timestamp deliveryDate) {
 		this.deliveryDate = deliveryDate;
+	}
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public long getOrderLineId() {
+		return orderLineId;
+	}
+
+	public void setOrderLineId(long orderLineId) {
+		this.orderLineId = orderLineId;
 	}
 }

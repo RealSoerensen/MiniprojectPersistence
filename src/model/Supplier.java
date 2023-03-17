@@ -1,15 +1,15 @@
 package model;
 
 public class Supplier {
-    private long id;
+    private long supplierId;
     private String name;
     private String address;
     private String country;
     private String phoneNo;
     private String email;
 
-    public Supplier(long id, String name, String address, String country, String phoneNo, String email) {
-        this.id = id;
+    public Supplier(long supplierId, String name, String address, String country, String phoneNo, String email) {
+        this.supplierId = supplierId;
         this.name = name;
         this.address = address;
         this.country = country;
@@ -17,12 +17,15 @@ public class Supplier {
         this.email = email;
     }
 
-    public long getId() {
-        return id;
+    public Supplier(){
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(long id) {
+        this.supplierId = id;
     }
 
     public String getName() {

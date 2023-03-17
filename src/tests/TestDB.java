@@ -26,7 +26,7 @@ public class TestDB {
     }
     
     @Test
-    public void shouldCloseConnectionToDB() throws SQLException {
+    public void shouldCloseConnectionToDB() {
     	//Arrange
     	
     	//Act

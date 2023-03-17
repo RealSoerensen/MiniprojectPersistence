@@ -1,17 +1,17 @@
 package controller;
 
-import dal.supplier.SupplierDBIF;
+import dal.DatabaseManager;
 import model.Supplier;
 
 public class SupplierController implements SupplierCtrIF{
-    private SupplierDBIF supplierDBIF;
+    private final DatabaseManager supplierDBIF;
 
-    public SupplierController(SupplierDBIF supplierDBIF) {
+    public SupplierController(DatabaseManager supplierDBIF) {
         this.supplierDBIF = supplierDBIF;
     }
 
     @Override
-    public boolean createSupplier(Supplier supplier) {
+    public boolean create(Supplier supplier) {
         boolean result = false;
         try {
             result = supplierDBIF.create(supplier);
@@ -22,12 +22,12 @@ public class SupplierController implements SupplierCtrIF{
     }
 
     @Override
-    public Supplier getSupplier(int id) {
-        return (Supplier) supplierDBIF.get(id);
+    public Supplier get(long id) {
+        return supplierDBIF.get(Supplier.class, id);
     }
 
     @Override
-    public boolean updateSupplier(Supplier supplier) {
+    public boolean update(Supplier supplier) {
         boolean result = false;
         try {
             result = supplierDBIF.update(supplier);
@@ -38,10 +38,10 @@ public class SupplierController implements SupplierCtrIF{
     }
 
     @Override
-    public boolean deleteSupplier(int id) {
+    public boolean delete(long id) {
         boolean result = false;
         try {
-            result = supplierDBIF.delete(id);
+            result = supplierDBIF.delete(Supplier.class, id);
         } catch (Exception e) {
             e.printStackTrace();
         }

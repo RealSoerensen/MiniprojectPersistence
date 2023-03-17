@@ -1,10 +1,14 @@
 package tests;
 
 import controller.ProductController;
-import dal.product.ProductDB;
+import controller.SupplierController;
+import dal.DBConnection;
+import dal.DatabaseManager;
 import model.Product;
+import model.Supplier;
 import org.junit.jupiter.api.*;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -12,17 +16,47 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class TestProducts {
-    ProductController productController;
+    static final ProductController productController;
+
+    static {
+        try {
+            productController = new ProductController(new DatabaseManager());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static final SupplierController supplierController;
+    static {
+        try {
+            supplierController = new SupplierController(new DatabaseManager());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static final DBConnection dbConnection;
+
+    static {
+        try {
+            dbConnection = DBConnection.getInstance();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static Connection con = DBConnection.getConnection();
 
     @BeforeEach
-    public void setup() throws SQLException {
-        productController = new ProductController(ProductDB.getInstance());
+    public void setupEach() {
+        Supplier supplier = new Supplier(1, "TestName", "TestAddress", "TestCountry", "TestPhone", "TestEmail");
+        supplierController.create(supplier);
     }
 
     @Test
     public void testCreate() {
         // Arrange
-        Product product = new Product(1, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
         // Act
         boolean result = productController.create(product);
@@ -32,22 +66,22 @@ public class TestProducts {
     }
 
     @Test
-    public void testProductContainerGet() {
+    public void testProductGet() {
         // Arrange
-        Product product = new Product(1, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
         productController.create(product);
 
         // Act
         product = productController.get(1);
 
         // Assert
-        assertEquals(1, product.getId());
+        assertEquals(1, product.getProductId());
     }
 
     @Test
     public void testGetAll() {
         // Arrange
-        Product product = new Product(1, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
         // Act
         productController.create(product);
@@ -60,7 +94,7 @@ public class TestProducts {
     @Test
     public void testProductContainerUpdate() {
         // Arrange
-        Product product = new Product(1, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
         // Act
         productController.create(product);
@@ -76,7 +110,7 @@ public class TestProducts {
     @Test
     public void testProductContainerDelete() {
         // Arrange
-        Product product = new Product(1, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
         // Act
         productController.create(product);
@@ -90,8 +124,8 @@ public class TestProducts {
     @Test
     public void testProductContainerGetAll() {
         // Arrange
-        Product product = new Product(1, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
-        Product product2 = new Product(2, 100, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product = new Product(1, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
+        Product product2 = new Product(2, 1, "TestName", "TestBrand", 50, 100, "TestCountry", 4, 5, "TestDesc", "TestCategory");
 
         // Act
         productController.create(product);
@@ -103,7 +137,7 @@ public class TestProducts {
     }
 
     @AfterEach
-    public void tearDown() {
-        productController = null;
+    public void tearDown() throws SQLException {
+        dbConnection.resetDatabase();
     }
 }

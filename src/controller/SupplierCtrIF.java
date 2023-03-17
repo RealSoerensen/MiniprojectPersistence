@@ -3,8 +3,8 @@ package controller;
 import model.Supplier;
 
 public interface SupplierCtrIF {
-    boolean createSupplier(Supplier supplier);
-    Supplier getSupplier(int id);
-    boolean updateSupplier(Supplier supplier);
-    boolean deleteSupplier(int id);
+    boolean create(Supplier supplier);
+    Supplier get(long id);
+    boolean update(Supplier supplier);
+    boolean delete(long id);
 }

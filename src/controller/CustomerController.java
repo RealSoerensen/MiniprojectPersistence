@@ -1,48 +1,44 @@
 package controller;
 
-import dal.customer.CustomerDBIF;
+import dal.DatabaseManager;
 import model.Customer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerController implements CustomerCtrIF {
-    private CustomerDBIF customerDBIF;
+    private DatabaseManager GenericDAO;
 
-    public CustomerController(CustomerDBIF customerDBIF) {
-        setCustomerCtrIF(customerDBIF);
+    public CustomerController(DatabaseManager GenericDAO) {
+        setCustomerCtrIF(GenericDAO);
     }
 
-    private void setCustomerCtrIF(CustomerDBIF customerDBIF) {
-        this.customerDBIF = customerDBIF;
+    private void setCustomerCtrIF(DatabaseManager GenericDAO) {
+        this.GenericDAO = GenericDAO;
     }
 
     @Override
     public boolean create(Customer obj) {
-        return customerDBIF.create(obj);
+        return GenericDAO.create(obj);
     }
 
     @Override
     public Customer get(long id) {
-        return (Customer) customerDBIF.get(id);
+        return GenericDAO.get(Customer.class, id);
     }
 
     @Override
     public List<Customer> getAll() {
-        List<Customer> customers = new ArrayList<>();
-        for(Object obj : customerDBIF.getAll()) {
-            customers.add((Customer) obj);
-        }
-        return customers;
+        return new ArrayList<>(GenericDAO.getAll(Customer.class));
     }
 
     @Override
     public boolean update(Customer obj) {
-        return customerDBIF.update(obj);
+        return GenericDAO.update(obj);
     }
 
     @Override
     public boolean delete(long id) {
-        return customerDBIF.delete(id);
+        return GenericDAO.delete(Customer.class, id);
     }
 }

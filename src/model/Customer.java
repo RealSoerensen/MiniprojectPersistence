@@ -8,14 +8,14 @@ public class Customer {
 	private String username;
 	private String password;
 
-	public Customer(String name, String address, String phoneNo, String username,
-			String password) {
-		this.customerId = 0;
+	public Customer(long customerId, String name, String address, String phoneNo) {
+		this.customerId = customerId;
 		this.name = name;
 		this.address = address;
 		this.phoneNo = phoneNo;
-		this.username = username;
-		this.password = password;
+	}
+
+	public Customer(){
 	}
 
 	public long getId() {
