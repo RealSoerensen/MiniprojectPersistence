@@ -74,6 +74,16 @@ public class TestSale {
         assertEquals(expectedDiscount, actualDiscount);
         assertEquals(expectedFinalTotal, actualFinalTotal);
         printInvoice(saleOrder);
+        updateProductStock(productId, orderLine.getQuantity());
+    }
+
+    private void updateProductStock(long productId, int quantity) throws SQLException {
+        Product product = productCtr.get(productId);
+        product.setStock(product.getStock() - quantity);
+        if(product.getStock() < product.getMinStock()) {
+            product.setStock(product.getMinStock()+20);
+        }
+        productCtr.update(product);
     }
 
     public double getTotal(long productId) {
